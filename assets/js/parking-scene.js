@@ -3,10 +3,64 @@
  * Soft shadows, PBR paints, smooth cinematic camera, eased vehicle motion
  */
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
-import { RoomEnvironment } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/environments/RoomEnvironment.js';
 
 const canvasHost = document.getElementById('parking-canvas');
 if (canvasHost) bootScene(canvasHost);
+
+/**
+ * RoomEnvironment from three/examples cannot be imported from a CDN without an
+ * import map — it uses the bare specifier `from 'three'`, which browsers reject.
+ * Build a compact studio capture locally so PBR paints still get reflections.
+ */
+function makeStudioEnvironment(renderer) {
+  const envScene = new THREE.Scene();
+
+  const shell = new THREE.Mesh(
+    new THREE.SphereGeometry(12, 24, 16),
+    new THREE.MeshBasicMaterial({ color: 0x1c2230, side: THREE.BackSide })
+  );
+  envScene.add(shell);
+
+  const warm = new THREE.Mesh(
+    new THREE.PlaneGeometry(8, 6),
+    new THREE.MeshBasicMaterial({ color: 0xffe4c4 })
+  );
+  warm.position.set(5, 6, 4);
+  warm.lookAt(0, 0, 0);
+  envScene.add(warm);
+
+  const cool = new THREE.Mesh(
+    new THREE.PlaneGeometry(7, 8),
+    new THREE.MeshBasicMaterial({ color: 0x6f8cff })
+  );
+  cool.position.set(-6, 3.5, 1);
+  cool.lookAt(0, 0, 0);
+  envScene.add(cool);
+
+  const overhead = new THREE.Mesh(
+    new THREE.PlaneGeometry(14, 8),
+    new THREE.MeshBasicMaterial({ color: 0xdce6f5 })
+  );
+  overhead.position.set(0, 9, -1);
+  overhead.rotation.x = Math.PI / 2;
+  envScene.add(overhead);
+
+  const key = new THREE.PointLight(0xfff4e0, 420, 0, 0);
+  key.position.set(4, 8, 5);
+  envScene.add(key);
+  const fill = new THREE.PointLight(0x88aaff, 180, 0, 0);
+  fill.position.set(-6, 3, -3);
+  envScene.add(fill);
+
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const tex = pmrem.fromScene(envScene, 0.06).texture;
+  pmrem.dispose();
+  envScene.traverse((obj) => {
+    if (obj.geometry) obj.geometry.dispose();
+    if (obj.material) obj.material.dispose();
+  });
+  return tex;
+}
 
 function bootScene(host) {
   const scene = new THREE.Scene();
@@ -32,9 +86,7 @@ function bootScene(host) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   host.appendChild(renderer.domElement);
 
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-  pmrem.dispose();
+  scene.environment = makeStudioEnvironment(renderer);
 
   // —— Lighting (soft studio + cool fill) ——
   scene.add(new THREE.HemisphereLight(0xb0c4de, 0x1a1510, 0.55));
@@ -427,10 +479,6 @@ function bootScene(host) {
   let nextEventAt = 1.8;
   const clock = new THREE.Clock();
 
-  function smoothstep(t) {
-    const x = Math.min(Math.max(t, 0), 1);
-    return x * x * (3 - 2 * x);
-  }
   function smootherstep(t) {
     const x = Math.min(Math.max(t, 0), 1);
     return x * x * x * (x * (x * 6 - 15) + 10);
