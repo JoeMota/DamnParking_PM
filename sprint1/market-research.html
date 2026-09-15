@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Market Research — Sprint 1 · Damn Parking</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Damn Parking
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../about/index.html">About</a></li>
+      <li><a href="index.html">Sprint 1</a></li>
+      <li><a href="../sprint2/index.html">Sprint 2</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Sprint 1 · Market Research</p>
+      <h1>What the market actually said</h1>
+      <p class="lede">Synthesis across campus drivers, facilities ops, and comparable products — then the top pick, and the directions we abandoned.</p>
+      <ul class="subnav">
+        <li><a href="index.html">Sprint 1</a></li>
+        <li><a href="market-research.html" aria-current="page">Market Research</a></li>
+        <li><a href="business-strategy.html">Business Strategy</a></li>
+        <li><a href="project-charter.html">Project Charter</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="lot-strip" aria-hidden="true"></div>
+
+  <main class="page-main">
+    <div class="container doc-body">
+      <div class="doc-toolbar">
+        <a class="pdf-link" href="../assets/pdfs/sprint1-market-research.pdf" download>Download PDF</a>
+        <span class="muted" style="font-size:0.85rem">Same document · web + PDF required</span>
+      </div>
+
+      <section class="section" style="padding-top:0">
+        <h2>Aggregate findings</h2>
+        <p>Across student/staff interviews, informal lot observation near peak class changes, and a teardown of payment-first vs. guidance-first parking products, three patterns repeated:</p>
+        <ol>
+          <li><strong style="color:var(--lane)">Availability beats payment UX.</strong> Drivers already pay (permits, meters, apps). The recurring curse word is circling — not checkout friction. Products that only sell transactions leave the “is there a spot?” question unanswered.</li>
+          <li><strong style="color:var(--lane)">Trust requires live truth, not static maps.</strong> Static “lot is usually full” guidance decays under events, construction, and semester rhythm. Users punish apps that send them to a full row. Facilities staff separately want the same truth for enforcement staffing and lot planning.</li>
+          <li><strong style="color:var(--lane)">Hardware-heavy stall sensors don’t match campus economics.</strong> In-ground sensors and per-stall IoT look polished in vendor decks and collapse under retrofit cost, asphalt work, and maintenance across dozens of lots. Camera reuse keeps showing up as the only path that facilities contacts treat as remotely fundable.</li>
+        </ol>
+        <p>Comparable landscape we studied (not exhaustive): ParkMobile / payment aggregators (transaction layer, weak occupancy); SpotHero / reservation marketplaces (urban inventory, not campus camera ops); Park Assist and similar camera/guidance vendors (closest technical cousins — enterprise sales cycles, heavy install narratives); generic “smart city” dashboards (pretty occupancy tiles, unclear bay-level accuracy claims).</p>
+        <p>Segment signal: <em>campus drivers</em> want “which lot / which aisle has space before I commit”; <em>facilities / parking services</em> want aggregate fill curves and exception alerts; <em>event ops</em> want temporary overlays. We narrowed primary users to daily campus drivers + parking services as the dual customer for an MVP.</p>
+      </section>
+
+      <section class="section">
+        <h2>Top pick — deep dive</h2>
+        <p><strong style="color:var(--amber)">Camera-based bay occupancy on existing lot CCTV, published as live counts + a simple map.</strong></p>
+        <p>This rose to the top because it intersects the three patterns: it answers availability (not just payment), it can be live, and it avoids per-stall hardware. Evidence that backed the pick:</p>
+        <ul>
+          <li><strong>Problem frequency:</strong> Peak-period circling is observable and emotionally salient — interviewees described 5–15 minute hunts as normal on bad days, which is enough pain to change arrival behavior if a trustworthy signal exists.</li>
+          <li><strong>Asset leverage:</strong> Many lots already have cameras for security. A software layer that consumes feeds (with policy approval) is a different budget conversation than ripping asphalt for sensors.</li>
+          <li><strong>MVP sharpness:</strong> Success can be defined narrowly — “open vs occupied per bay in Lot X during daylight, with a confidence flag” — without boiling the ocean into autonomous valet.</li>
+          <li><strong>Dual value:</strong> The same occupancy stream serves drivers (where to go) and ops (how full we are), which strengthens the sponsor story.</li>
+        </ul>
+        <div class="callout">
+          <strong>Why not only a mobile “report a spot” social layer?</strong> Crowdsourced spot reports die from cold-start and vandalism (false opens). Vision from fixed cameras is the source of truth; human reports can be a later supplement, not the spine.
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>What didn’t work / what we pivoted from</h2>
+        <div class="callout pivot">
+          <strong>Abandoned: reservation marketplace for campus stalls.</strong> Attractive on paper (monetize scarcity). Broke down under permit politics, fairness optics, and the fact that most campus stalls aren’t a SpotHero-style inventory the university wants to auction to students.
+        </div>
+        <div class="callout pivot">
+          <strong>Abandoned: greenfield IoT stall sensors as the primary sensing plan.</strong> Accuracy narratives are strong; CapEx and maintenance across campus lots are not. We keep sensors as a possible future augmentation for covered or high-value bays, not the MVP foundation.
+        </div>
+        <div class="callout pivot">
+          <strong>Abandoned: “build our own cameras first.”</strong> Early excitement about custom hardware competed with the real bottleneck — software, data policy, and proving occupancy quality. Pivot: assume existing feeds + mount permissions; hardware only if a lot is blind.
+        </div>
+        <p>Assumption that changed: we stopped treating Damn Parking as a consumer payment app with a map skin, and started treating it as an <em>occupancy intelligence</em> service whose first customer is campus parking services — with drivers as the visible beneficiaries.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Damn Parking</div>
+      <p class="footer-meta"><a href="index.html">Sprint 1</a> · Market Research</p>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

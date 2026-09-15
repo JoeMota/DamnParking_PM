@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Charter — Sprint 1 · Damn Parking</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Damn Parking
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../about/index.html">About</a></li>
+      <li><a href="index.html">Sprint 1</a></li>
+      <li><a href="../sprint2/index.html">Sprint 2</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Sprint 1 · Project Charter</p>
+      <h1>Charter</h1>
+      <p class="lede">Scope boundary, assumptions, and stakeholder register — the anchor document for every later sprint.</p>
+      <ul class="subnav">
+        <li><a href="index.html">Sprint 1</a></li>
+        <li><a href="market-research.html">Market Research</a></li>
+        <li><a href="business-strategy.html">Business Strategy</a></li>
+        <li><a href="project-charter.html" aria-current="page">Project Charter</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="lot-strip" aria-hidden="true"></div>
+
+  <main class="page-main">
+    <div class="container doc-body">
+      <div class="doc-toolbar">
+        <a class="pdf-link" href="../assets/pdfs/sprint1-project-charter.pdf" download>Download PDF</a>
+        <span class="muted" style="font-size:0.85rem">Same document · web + PDF required</span>
+      </div>
+
+      <section class="section" style="padding-top:0">
+        <h2>Project title</h2>
+        <p><strong style="color:var(--lane)">Damn Parking</strong> — camera-based parking occupancy intelligence for a campus pilot lot.</p>
+
+        <h3>Purpose</h3>
+        <p>Deliver a managed semester project that designs (and where feasible, prototypes the information architecture for) a system which detects open vs. occupied parking bays from lot camera imagery and publishes availability to drivers and parking services.</p>
+
+        <h3>Objectives</h3>
+        <ul>
+          <li>Define a clear MVP: bay-level occupancy for one pilot lot, daylight-first, with explicit accuracy and latency targets to be refined in Sprint 2 estimation.</li>
+          <li>Maintain a living project portal that records research, strategy, charter, and later business case / ROI artifacts.</li>
+          <li>Surface risks early: privacy/policy, lighting, occlusion, and integration with campus IT.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Scope boundary</h2>
+        <h3>In scope</h3>
+        <ul>
+          <li>Problem framing, market research, strategy, and charter (Sprint 1).</li>
+          <li>Business case, estimation, and ROI analysis (Sprint 2+ as assigned).</li>
+          <li>Conceptual architecture for CV occupancy → API/event stream → driver map + ops dashboard.</li>
+          <li>UX narrative and portal visualization that communicates the product vision (simulated live lot).</li>
+          <li>Risk register and stakeholder engagement notes as the portal grows.</li>
+        </ul>
+        <h3>Out of scope</h3>
+        <ul>
+          <li>Production deployment on live campus cameras without formal approval.</li>
+          <li>Payment, permitting, ticketing, or LPR enforcement systems.</li>
+          <li>Autonomous vehicles, robotic valet, or stall-reservation marketplaces.</li>
+          <li>Installing new camera hardware campus-wide (may note single-lot gap fill only).</li>
+          <li>Publishing Sprint Retrospectives or peer evaluations on the public site.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Assumptions</h2>
+        <ol>
+          <li>At least one pilot lot has (or can be granted) camera coverage with angles sufficient for bay inference, or the team will document coverage gaps and use representative video/datasets for coursework prototypes.</li>
+          <li>Parking services is the primary institutional sponsor persona; students/staff drivers are primary end users of the availability view.</li>
+          <li>Privacy and data-retention rules can be satisfied with occupancy metadata (bay states) rather than long-term storage of identifiable face/plate imagery in the MVP design.</li>
+          <li>The living portal remains the system of record for public PM artifacts; Blackboard holds private retros, peer evals, and PDF submission copies.</li>
+          <li>Team members can explain any portal page in final Q&amp;A, regardless of original authorship.</li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <h2>Constraints</h2>
+        <ul>
+          <li>Course calendar and sprint deadlines; portal content must be live by demo time.</li>
+          <li>Free hosting + public GitHub repository required.</li>
+          <li>Every public document must exist as on-page text and downloadable PDF.</li>
+          <li>No live publication of retrospectives or peer evaluations.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Stakeholder register</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Stakeholder</th>
+                <th>Interest</th>
+                <th>Influence</th>
+                <th>Engagement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Campus parking / facilities</td>
+                <td>Occupancy truth, congestion, pilot feasibility</td>
+                <td>High</td>
+                <td>Primary sponsor persona; validate scope &amp; policy</td>
+              </tr>
+              <tr>
+                <td>Student &amp; staff drivers</td>
+                <td>Faster time-to-park, less circling</td>
+                <td>Medium</td>
+                <td>Interviews, usability of availability UX</td>
+              </tr>
+              <tr>
+                <td>Campus IT / security</td>
+                <td>Camera access, privacy, network</td>
+                <td>High</td>
+                <td>Gate on feeds; retention rules</td>
+              </tr>
+              <tr>
+                <td>Course instructor</td>
+                <td>PM quality, portal completeness, demos</td>
+                <td>High</td>
+                <td>Sprint reviews; grading artifacts</td>
+              </tr>
+              <tr>
+                <td>Project team</td>
+                <td>Clear ownership, defensible decisions</td>
+                <td>High</td>
+                <td>Daily execution; portal upkeep</td>
+              </tr>
+              <tr>
+                <td>Peer review teams</td>
+                <td>Gallery-walk feedback on Sprint 1</td>
+                <td>Low–Med</td>
+                <td>Structured critique; we respond &amp; revise</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>High-level risks (charter level)</h2>
+        <ul>
+          <li><strong>Policy / privacy block</strong> on camera access → mitigate with synthetic/demo video and explicit metadata-only design.</li>
+          <li><strong>CV accuracy under glare, night, occlusion</strong> → daylight pilot, confidence thresholds, human override path.</li>
+          <li><strong>Scope creep into payments or enforcement</strong> → charter out-of-scope list enforced in backlog grooming.</li>
+          <li><strong>Portal drift</strong> (docs without PDFs, or PDFs without web text) → checklist owner each sprint.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Success criteria (semester)</h2>
+        <ul>
+          <li>Living portal remains complete and coherent sprint-over-sprint.</li>
+          <li>Charter stays accurate; change logs (Sprint 2+) explain drift.</li>
+          <li>Business case / estimation / ROI (when required) tie back to this scope boundary.</li>
+          <li>Team can defend every public page in presentation Q&amp;A.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Damn Parking</div>
+      <p class="footer-meta"><a href="index.html">Sprint 1</a> · Project Charter</p>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Business Strategy — Sprint 1 · Damn Parking</title>
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Damn Parking
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../about/index.html">About</a></li>
+      <li><a href="index.html">Sprint 1</a></li>
+      <li><a href="../sprint2/index.html">Sprint 2</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Sprint 1 · Business Strategy</p>
+      <h1>Strategy → project</h1>
+      <p class="lede">Why Damn Parking earns the right to exist, and which business objective the semester project serves.</p>
+      <ul class="subnav">
+        <li><a href="index.html">Sprint 1</a></li>
+        <li><a href="market-research.html">Market Research</a></li>
+        <li><a href="business-strategy.html" aria-current="page">Business Strategy</a></li>
+        <li><a href="project-charter.html">Project Charter</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="lot-strip" aria-hidden="true"></div>
+
+  <main class="page-main">
+    <div class="container doc-body">
+      <div class="doc-toolbar">
+        <a class="pdf-link" href="../assets/pdfs/sprint1-business-strategy.pdf" download>Download PDF</a>
+        <span class="muted" style="font-size:0.85rem">Same document · web + PDF required</span>
+      </div>
+
+      <section class="section" style="padding-top:0">
+        <h2>The strategy-to-project chain</h2>
+        <h3>1. Business context</h3>
+        <p>Campus parking is a constrained, high-emotion resource. When lots look full from the entrance but still hold open bays out of sight, the university absorbs wasted time, congestion at choke points, and frustration that spills into every other campus experience. Parking services already invest in cameras and enforcement; they under-invest in turning those cameras into an operational availability signal.</p>
+
+        <h3>2. Strategic objective</h3>
+        <p><strong style="color:var(--lane)">Reduce time-to-park and lot-entrance congestion by publishing trustworthy, bay-level occupancy from existing camera infrastructure</strong> — starting with one pilot lot, measured against a baseline of average search time and reported “false full” entrances.</p>
+
+        <h3>3. Why a software project (this team) is the right vehicle</h3>
+        <ul>
+          <li>The scarce asset is not more asphalt — it is information. Software can unlock capacity that already exists physically.</li>
+          <li>A semester team can prove the management and technical story for a pilot: scope, risks, estimation, and a credible MVP boundary — which is what sponsors need before larger spend.</li>
+          <li>Computer vision is the enabling capability; project management discipline is what keeps the vision from expanding into “autonomous campus mobility.”</li>
+        </ul>
+
+        <h3>4. How the project serves the objective</h3>
+        <p>Damn Parking will define and manage delivery of an occupancy pipeline concept: ingest (or simulate) lot camera frames → detect bay states → expose live counts/map to a driver-facing view and an ops-facing view. The living portal documents decisions, scope cuts, and evidence so a sponsor can audit the chain from strategy to backlog.</p>
+
+        <h3>5. What we explicitly are not optimizing for (yet)</h3>
+        <ul>
+          <li>Payment, permitting, or citation workflows (adjacent systems already exist).</li>
+          <li>City-wide smart parking or multi-campus SaaS expansion.</li>
+          <li>Guaranteed 99.9% detection in night/rain edge cases on day one — we will measure and disclose failure modes instead of marketing perfection.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>One-sentence strategy:</strong> Use software on cameras the campus already owns to make hidden open stalls visible — cutting circling before we ask anyone to pour more concrete.
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Damn Parking</div>
+      <p class="footer-meta"><a href="index.html">Sprint 1</a> · Business Strategy</p>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js"></script>
+</body>
+</html>
