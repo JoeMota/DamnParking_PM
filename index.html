@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Damn Parking — Living Project Portal</title>
-  <meta name="description" content="Computer vision turns campus parking cameras into a live availability signal. UTEP Software Project Management living portal." />
+  <title>Damn Parking</title>
+  <meta name="description" content="Live parking occupancy from the cameras already on your lot. Damn Parking — UTEP Living Project Portal." />
   <link rel="stylesheet" href="assets/css/main.css" />
 </head>
-<body>
+<body class="page-home">
   <nav class="site-nav" aria-label="Primary">
     <a class="brand" href="index.html">
       <span class="brand-mark" aria-hidden="true"></span>
@@ -16,7 +16,7 @@
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
     <ul class="nav-links" id="nav-menu">
       <li><a href="index.html" aria-current="page">Home</a></li>
-      <li><a href="about/index.html">About Us</a></li>
+      <li><a href="about/index.html">About</a></li>
       <li><a href="sprint1/index.html">Sprint 1</a></li>
       <li><a href="sprint2/index.html">Sprint 2</a></li>
     </ul>
@@ -29,78 +29,93 @@
     </div>
 
     <div class="hero-content">
-      <h1 class="hero-brand">Damn <span>Parking</span></h1>
-      <p class="hero-tagline">Campus lots waste minutes because drivers can’t see open bays. We turn existing cameras into a live occupancy signal.</p>
+      <h1 class="hero-brand">Damn Parking</h1>
+      <p class="hero-tagline">Stop circling. See open bays the moment a camera does.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="sprint1/index.html">Enter Sprint 1</a>
+        <a class="btn btn-primary" href="sprint1/index.html">View Sprint 1</a>
         <a class="btn btn-ghost" href="about/index.html">Meet the team</a>
       </div>
     </div>
 
-    <div class="live-hud" aria-label="Simulated lot telemetry">
+    <div class="live-hud" aria-label="Live lot status">
       <div class="hud-cell">
-        <div class="hud-label">Open bays</div>
+        <div class="hud-label">Open</div>
         <div class="hud-value open" id="hud-open">—</div>
       </div>
       <div class="hud-cell">
-        <div class="hud-label">Occupied</div>
+        <div class="hud-label">Taken</div>
         <div class="hud-value occ" id="hud-occ">—</div>
       </div>
       <div class="hud-cell">
         <div class="hud-label">Cameras</div>
-        <div class="hud-value cam">03</div>
+        <div class="hud-value">3</div>
       </div>
       <div class="hud-cell">
-        <div class="hud-label">CV event</div>
-        <div class="hud-value live"><span class="live-dot" aria-hidden="true"></span><span id="hud-event" style="font-family:var(--font-mono);font-size:0.85rem;font-weight:500;letter-spacing:0;">Boot…</span></div>
+        <div class="hud-label">Status</div>
+        <div class="hud-value live"><span class="live-dot" aria-hidden="true"></span><span id="hud-event">Live</span></div>
       </div>
     </div>
   </header>
 
-  <main>
-    <section class="section">
-      <div class="container">
-        <h2>The living portal</h2>
-        <p class="doc-body muted">This site is the semester-long management record for <strong style="color:var(--lane)">Damn Parking</strong> — a software project that detects open parking spaces from lot cameras and surfaces availability to drivers and facilities. It is not a product app demo. It is how we plan, decide, and revise the work.</p>
-        <div class="tile-grid">
-          <a class="tile" href="about/index.html">
-            <span class="tile-num">Team</span>
-            <h3>About Us</h3>
-            <p>Roles, ownership, and who answers for what.</p>
-            <span class="tile-arrow">Open →</span>
-          </a>
-          <a class="tile" href="sprint1/index.html">
-            <span class="tile-num">Sprint 01</span>
-            <h3>Foundation</h3>
-            <p>Market research, business strategy, and project charter.</p>
-            <span class="tile-arrow">Open →</span>
-          </a>
-          <a class="tile" href="sprint2/index.html">
-            <span class="tile-num">Sprint 02</span>
-            <h3>Case &amp; ROI</h3>
-            <p>Business case, estimation, ROI — landing next.</p>
-            <span class="tile-arrow">Preview →</span>
-          </a>
-        </div>
-      </div>
-    </section>
+  <section class="story story-light">
+    <div class="story-inner">
+      <h2>Visibility changes everything.</h2>
+      <p>Empty stalls hide in plain sight. Damn Parking turns lot cameras into a live occupancy map — so drivers go straight to space, and campus ops finally see the truth.</p>
+    </div>
+  </section>
 
-    <section class="section">
-      <div class="container doc-body">
-        <h2>What we’re building</h2>
-        <p>Drivers circle lots while empty stalls sit out of sight. Facilities staff lack a trustworthy occupancy picture. Damn Parking proposes a computer-vision layer on existing camera feeds: classify bay occupancy, publish a live map and counts, and keep humans in the loop for exceptions — without requiring new sensors in every stall.</p>
-        <p class="muted">The 3D lot above is a cinematic stand-in for that signal — cars arriving and leaving, camera frustums tracking bays — while the sprint pages document the management work behind the idea.</p>
+  <section class="story story-dark">
+    <div class="story-inner">
+      <h2>No new sensors in the asphalt.</h2>
+      <p>We layer computer vision on cameras you already own. Bay-level open or occupied. Published live. Built for a campus pilot — managed in the open on this portal.</p>
+      <div class="story-ctas">
+        <a class="btn btn-primary" href="sprint1/project-charter.html">Read the charter</a>
+        <a class="btn btn-ghost" href="sprint1/market-research.html">See the research</a>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <section class="story story-panel">
+    <div class="story-inner">
+      <h2>A living project record.</h2>
+      <p>This isn’t a product storefront. It’s how we run the semester — decisions, scope, and artifacts an engineering lead could audit.</p>
+    </div>
+  </section>
+
+  <section class="portal-strip">
+    <div class="intro">
+      <h2>Explore the portal</h2>
+      <p>Sprint pages grow across the semester. Start with the foundation.</p>
+    </div>
+    <div class="tile-grid">
+      <a class="tile" href="about/index.html">
+        <span class="tile-num">Team</span>
+        <h3>About</h3>
+        <p>Who we are, what we own, and who reviews what.</p>
+        <span class="tile-arrow">Open</span>
+      </a>
+      <a class="tile" href="sprint1/index.html">
+        <span class="tile-num">Sprint 1</span>
+        <h3>Foundation</h3>
+        <p>Market research, strategy, and the project charter.</p>
+        <span class="tile-arrow">Open</span>
+      </a>
+      <a class="tile" href="sprint2/index.html">
+        <span class="tile-num">Sprint 2</span>
+        <h3>Case &amp; ROI</h3>
+        <p>Business case, estimation, and ROI — next up.</p>
+        <span class="tile-arrow">Preview</span>
+      </a>
+    </div>
+  </section>
 
   <footer class="site-footer">
     <div class="footer-inner">
       <div>
         <div class="footer-brand">Damn Parking</div>
-        <p class="footer-meta" style="margin-top:0.5rem">UTEP CS 4390 / 5388 — Software Project Management · Living Project Portal</p>
+        <p class="footer-meta" style="margin-top:0.4rem">UTEP CS 4390 / 5388 · Living Project Portal</p>
       </div>
-      <p class="footer-meta">Source on <a href="https://github.com/JoeMota/DamnParking_PM">GitHub</a>. Retrospectives stay private on Blackboard.</p>
+      <p class="footer-meta">Source on <a href="https://github.com/JoeMota/DamnParking_PM">GitHub</a>. Retrospectives stay on Blackboard.</p>
     </div>
   </footer>
 

@@ -1,7 +1,9 @@
-/* Shared nav + mobile menu */
+/* Shared nav + scroll styling */
 (function () {
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
+  const nav = document.querySelector('.site-nav');
+
   if (toggle && links) {
     toggle.addEventListener('click', () => {
       const open = links.classList.toggle('open');
@@ -9,7 +11,14 @@
     });
   }
 
-  // Mark current nav item
+  if (nav) {
+    const onScroll = () => {
+      nav.classList.toggle('is-scrolled', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   const path = location.pathname.replace(/\/$/, '') || '/';
   document.querySelectorAll('.nav-links a, .subnav a').forEach((a) => {
     try {
