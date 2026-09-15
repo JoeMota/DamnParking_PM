@@ -1,0 +1,9 @@
+{
+  "name": "damn-parking-living-portal",
+  "private": true,
+  "description": "Static Living Project Portal for Damn Parking (no framework build).",
+  "scripts": {
+    "test": "python3 scripts/smoke_test.py",
+    "start": "python3 -m http.server 8080"
+  }
+}

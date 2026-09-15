@@ -12,7 +12,23 @@ python3 -m http.server 8080
 # open http://localhost:8080
 ```
 
-Or use any static host (GitHub Pages, Netlify, Vercel). Point Pages at `/` (root).
+Or: `npm start` (same static server).
+
+Or use any static host (GitHub Pages, Netlify, Vercel). Point Pages / Vercel at `/` (repo root).
+
+### Vercel
+
+This site is **static HTML/CSS/JS** — no Preact/React build. `vercel.json` forces Framework Preset **Other** (`framework: null`), skips install/build, and serves `outputDirectory: "."`. If a Vercel project was previously set to Preact, merge this config (or clear the dashboard Build Command) so deploy no longer runs `preact build`.
+
+### Tests / CI
+
+```bash
+python3 scripts/smoke_test.py
+# or
+npm test
+```
+
+GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull requests and pushes to `main`: required pages/PDFs, PDF link parity, HTML structure, static server HTTP 200 smoke, and vercel.json static guards.
 
 ## Site map
 
