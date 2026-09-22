@@ -18,7 +18,11 @@ Or use any static host (GitHub Pages, Netlify, Vercel). Point Pages / Vercel at 
 
 ### Vercel
 
-This site is **static HTML/CSS/JS** — no Preact/React build. `vercel.json` forces Framework Preset **Other** (`framework: null`), skips install/build, and serves `outputDirectory: "."`. If a Vercel project was previously set to Preact, merge this config (or clear the dashboard Build Command) so deploy no longer runs `preact build`.
+This site is **static HTML/CSS/JS** — no Preact/React build. `vercel.json` forces Framework Preset **Other** (`framework: null`), skips install/build, serves `outputDirectory: "."`, enables `cleanUrls`, and sets `trailingSlash: false`.
+
+**Internal links and assets must be root-absolute** (e.g. `/sprint1/market-research.html`, `/assets/pdfs/...`). Relative sibling links break when Vercel serves `/sprint1` without a trailing slash (`market-research.html` resolves to `/market-research` → 404), so PDF pages look missing.
+
+Live (JoeMota): https://damn-parking-pm-theta.vercel.app — also mirrored at https://damn-parking-pm.vercel.app (SaulBurns). If a Vercel project was previously set to Preact, merge this config (or clear the dashboard Build Command) so deploy no longer runs `preact build`.
 
 ### Tests / CI
 
