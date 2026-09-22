@@ -66,7 +66,7 @@ body:not(.page-home) .site-nav {
 .page-home .site-nav:not(.is-scrolled) .brand,
 .page-home .site-nav:not(.is-scrolled) .nav-links a,
 .page-home .site-nav:not(.is-scrolled) .nav-toggle {
-  color: var(--white);
+  color: var(--white) !important;
 }
 
 .brand {
@@ -92,18 +92,38 @@ body:not(.page-home) .site-nav {
   align-items: center;
   gap: 1.75rem;
   list-style: none;
+  margin: 0;
   padding: 0;
 }
 
+/* Kill global li + li { margin-top } so horizontal rows stay level */
+.nav-links li {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
   color: var(--ink);
   font-size: 0.875rem;
   font-weight: 500;
+  line-height: 1.25;
   opacity: 0.85;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, border-color 0.2s;
+  padding: 0.35rem 0;
+  border-bottom: 2px solid transparent;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 .nav-links a:hover,
-.nav-links a[aria-current="page"] { opacity: 1; }
+.nav-links a[aria-current="page"] {
+  opacity: 1;
+  border-bottom-color: var(--accent);
+}
 
 .nav-toggle {
   display: none;
@@ -182,6 +202,7 @@ body:not(.page-home) .site-nav {
 .hero-ctas {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   gap: 0.75rem;
   margin-bottom: 2rem;
@@ -196,8 +217,11 @@ body:not(.page-home) .site-nav {
   font-family: var(--font);
   font-weight: 500;
   font-size: 0.9rem;
+  line-height: 1.25;
   border-radius: 0.25rem;
-  border: none;
+  /* Shared border box so primary/ghost/outline rows stay level */
+  border: 1px solid transparent;
+  box-sizing: border-box;
   cursor: pointer;
   transition: background 0.25s var(--ease), color 0.25s, transform 0.25s, border-color 0.25s;
 }
@@ -206,14 +230,15 @@ body:not(.page-home) .site-nav {
 .btn-primary {
   background: var(--accent);
   color: var(--white);
+  border-color: var(--accent);
 }
-.btn-primary:hover { background: #e10600; color: var(--white); }
+.btn-primary:hover { background: #e10600; color: var(--white); border-color: #e10600; }
 
 .btn-ghost {
   background: rgba(255, 255, 255, 0.12);
   color: var(--white);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 .btn-ghost:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -223,13 +248,16 @@ body:not(.page-home) .site-nav {
 .btn-dark {
   background: var(--ink);
   color: var(--white);
+  border-color: var(--ink);
 }
-.btn-dark:hover { background: #000; color: var(--white); }
+.btn-dark:hover { background: #000; color: var(--white); border-color: #000; }
 
 .btn-outline {
   background: transparent;
   color: var(--ink);
-  border: 3px solid var(--ink);
+  border-width: 3px;
+  border-color: var(--ink);
+  padding: calc(0.7rem - 2px) calc(1.5rem - 2px);
 }
 .btn-outline:hover { background: var(--ink); color: var(--white); }
 
@@ -331,6 +359,7 @@ body:not(.page-home) .site-nav {
 .story-ctas {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   gap: 0.75rem;
 }
@@ -485,11 +514,20 @@ body:not(.page-home) .site-nav {
   max-width: var(--max);
 }
 
+/* Doc/body links; nav & CTAs set their own colors */
 a:not(.btn):not(.tile):not(.brand):not(.pdf-link) {
   color: var(--accent);
 }
 a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
   text-decoration: underline;
+}
+.nav-links a,
+.site-nav .nav-links a {
+  color: var(--ink) !important;
+  text-decoration: none !important;
+}
+.page-home .site-nav:not(.is-scrolled) .nav-links a {
+  color: var(--white) !important;
 }
 
 .subnav {
@@ -499,8 +537,8 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
   justify-content: center;
   gap: 1.25rem;
   list-style: none;
-  padding: 0;
   margin: 1.75rem 0 0;
+  padding: 0;
 }
 .subnav li {
   display: flex;
@@ -524,7 +562,7 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
 .subnav a:hover,
 .subnav a[aria-current="page"] {
   color: var(--ink) !important;
-  border-color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 .doc-toolbar {
@@ -541,16 +579,22 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
 .pdf-link {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: 0.55rem 1.1rem;
   font-size: 0.85rem;
   font-weight: 500;
+  line-height: 1.25;
   color: var(--white);
   background: var(--ink);
+  border: 1px solid var(--ink);
   border-radius: 0.25rem;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 .doc-toolbar .pdf-link:hover,
 .pdf-link:hover {
   background: var(--accent);
+  border-color: var(--accent);
   color: var(--white);
   text-decoration: none;
 }
@@ -821,13 +865,27 @@ tr:hover td { background: rgba(0, 0, 0, 0.02); }
     background: rgba(0, 0, 0, 0.92);
   }
   .nav-links.open { display: flex; }
+  .nav-links li {
+    margin: 0;
+    width: 100%;
+  }
   .nav-links a {
+    display: flex;
+    width: 100%;
     padding: 0.85rem 0;
     border-bottom: 1px solid var(--line);
     color: var(--ink) !important;
   }
+  .nav-links a:hover,
+  .nav-links a[aria-current="page"] {
+    border-bottom-color: var(--line);
+  }
   .page-home .site-nav:not(.is-scrolled) .nav-links a {
     color: var(--white) !important;
+    border-bottom-color: var(--line-on-dark);
+  }
+  .page-home .site-nav:not(.is-scrolled) .nav-links a:hover,
+  .page-home .site-nav:not(.is-scrolled) .nav-links a[aria-current="page"] {
     border-bottom-color: var(--line-on-dark);
   }
   .live-hud { gap: 1.25rem; }
