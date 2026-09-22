@@ -495,19 +495,31 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
 .subnav {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 0.35rem 1.25rem;
+  gap: 1.25rem;
   list-style: none;
   padding: 0;
   margin: 1.75rem 0 0;
 }
+.subnav li {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 .subnav a {
+  display: inline-flex;
+  align-items: center;
   font-size: 0.85rem;
+  line-height: 1.25;
   font-weight: 500;
   color: var(--muted) !important;
   text-decoration: none !important;
-  padding-bottom: 0.2rem;
+  padding: 0.35rem 0;
   border-bottom: 2px solid transparent;
+  box-sizing: border-box;
 }
 .subnav a:hover,
 .subnav a[aria-current="page"] {
