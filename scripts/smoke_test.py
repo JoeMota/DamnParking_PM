@@ -34,16 +34,21 @@ REQUIRED_ASSETS = [
     "assets/js/site.js",
     "assets/js/parking-scene.js",
     "assets/pdfs/sprint1-market-research.pdf",
+    "assets/pdfs/sprint1-market-research-phase-1.pdf",
+    "assets/pdfs/sprint1-market-research-phase-2.pdf",
     "assets/pdfs/sprint1-business-strategy.pdf",
     "assets/pdfs/sprint1-project-charter.pdf",
     "assets/pdfs/sprint1-contributions.pdf",
 ]
 
 REQUIRED_SECTIONS = {
-    "index.html": ["Damn Parking", "parking-canvas", "assets/js/parking-scene.js"],
+    "index.html": ["Damn Parking", "parking-canvas", "assets/js/parking-scene.js", "Coming soon"],
     "about/index.html": ["About", "site-nav"],
-    "sprint1/index.html": ["Sprint 1", "market-research"],
-    "sprint1/project-charter.html": ["Project Charter", "pdf-link"],
+    "sprint1/index.html": ["Sprint 1", "market-research", "Blackboard"],
+    "sprint1/project-charter.html": ["Project Charter", "pdf-link", "pdf-viewer"],
+    "sprint1/market-research.html": ["Market Research", "pdf-viewer", "sprint1-market-research-phase-1.pdf", "sprint1-market-research-phase-2.pdf"],
+    "sprint1/business-strategy.html": ["Business Strategy", "pdf-link", "pdf-viewer"],
+    "sprint2/index.html": ["Coming soon"],
 }
 
 SMOKE_PATHS = [
@@ -63,17 +68,19 @@ SMOKE_PATHS = [
     "/assets/js/site.js",
     "/assets/js/parking-scene.js",
     "/assets/pdfs/sprint1-market-research.pdf",
+    "/assets/pdfs/sprint1-market-research-phase-1.pdf",
+    "/assets/pdfs/sprint1-market-research-phase-2.pdf",
     "/assets/pdfs/sprint1-business-strategy.pdf",
     "/assets/pdfs/sprint1-project-charter.pdf",
     "/assets/pdfs/sprint1-contributions.pdf",
 ]
 
 PDF_HREF_RE = re.compile(
-    r"""(?:href|src)=["']([^"']+\.pdf)["']""",
+    r"""(?:href|src)=["']([^"']+\.pdf[^"']*)["']""",
     re.IGNORECASE,
 )
 ASSET_REF_RE = re.compile(
-    r"""(?:href|src)=["']([^"']+\.(?:css|js|pdf))["']""",
+    r"""(?:href|src)=["']([^"']+\.(?:css|js|pdf)[^"']*)["']""",
     re.IGNORECASE,
 )
 
@@ -332,6 +339,24 @@ def check_http_smoke(failures: Failures) -> None:
         server.server_close()
 
 
+def check_no_retrospective_published(failures: Failures) -> None:
+    """Course rule: Sprint Retrospective stays on Blackboard — never on the public portal."""
+    banned = re.compile(r"retrospect", re.IGNORECASE)
+    # Allow the word in explanatory "not published" copy, but never as a PDF asset/link.
+    for pdf in (ROOT / "assets" / "pdfs").glob("*.pdf"):
+        if banned.search(pdf.name):
+            failures.add(f"retrospective PDF must not be in public assets: {pdf.relative_to(ROOT)}")
+    for html_path in ROOT.rglob("*.html"):
+        if ".git" in html_path.parts:
+            continue
+        content = html_path.read_text(encoding="utf-8")
+        for href in PDF_HREF_RE.findall(content):
+            if banned.search(href):
+                failures.add(
+                    f"retrospective PDF linked from {html_path.relative_to(ROOT)}: {href}"
+                )
+
+
 def main() -> int:
     failures = Failures()
     print("Damn Parking portal smoke tests")
@@ -342,6 +367,7 @@ def main() -> int:
         ("vercel static config", check_vercel_static),
         ("no preact package", check_no_preact_package),
         ("pdf link parity", check_pdf_links),
+        ("no public retrospective", check_no_retrospective_published),
         ("html structure", check_html_structure),
         ("local asset refs", check_local_asset_refs),
         ("http smoke", check_http_smoke),
