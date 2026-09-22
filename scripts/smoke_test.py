@@ -187,6 +187,10 @@ def resolve_href(page: Path, href: str) -> Path | None:
     href = href.split("?", 1)[0].split("#", 1)[0]
     if not href:
         return None
+    # Root-absolute paths (/assets/..., /sprint1/...) are required under Vercel
+    # cleanUrls so /sprint1 (no trailing slash) does not break sibling links/PDFs.
+    if href.startswith("/"):
+        return (ROOT / href.lstrip("/")).resolve()
     return (page.parent / href).resolve()
 
 
@@ -205,7 +209,12 @@ def check_vercel_static(failures: Failures) -> None:
     text = vercel.read_text(encoding="utf-8")
     if "preact" in text.lower():
         failures.add("vercel.json must not reference Preact")
-    for needle in ('"framework": null', '"buildCommand": null', '"outputDirectory": "."'):
+    for needle in (
+        '"framework": null',
+        '"buildCommand": null',
+        '"outputDirectory": "."',
+        '"trailingSlash": false',
+    ):
         if needle not in text:
             failures.add(f'vercel.json missing {needle}')
 
@@ -298,6 +307,33 @@ def check_local_asset_refs(failures: Failures) -> None:
                 )
 
 
+INTERNAL_REF_RE = re.compile(
+    r"""(?:href|src)=["']([^"']+)["']""",
+    re.IGNORECASE,
+)
+
+
+def check_root_absolute_internal_links(failures: Failures) -> None:
+    """Vercel cleanUrls serves /sprint1 without a trailing slash; relative sibling
+    hrefs then resolve to the site root and 404. Require site-local href/src to be
+    root-absolute (or external/hash/mailto).
+    """
+    for html_path in ROOT.rglob("*.html"):
+        if ".git" in html_path.parts:
+            continue
+        content = html_path.read_text(encoding="utf-8")
+        for href in INTERNAL_REF_RE.findall(content):
+            if href.startswith(
+                ("http://", "https://", "//", "mailto:", "tel:", "data:", "javascript:", "#")
+            ):
+                continue
+            if not href.startswith("/"):
+                failures.add(
+                    f"{html_path.relative_to(ROOT)}: relative link {href!r} breaks under "
+                    "Vercel cleanUrls; use a root-absolute path like /sprint1/..."
+                )
+
+
 def check_http_smoke(failures: Failures) -> None:
     handler = type(
         "RootHandler",
@@ -384,6 +420,7 @@ def main() -> int:
         ("retrospective published", check_retrospective_published),
         ("html structure", check_html_structure),
         ("local asset refs", check_local_asset_refs),
+        ("root-absolute links", check_root_absolute_internal_links),
         ("http smoke", check_http_smoke),
     ]
 
