@@ -571,12 +571,34 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
   font-size: 0.85rem;
   color: var(--muted);
   margin: 0.35rem 0 0;
-  max-width: 40rem;
+  max-width: 42rem;
+  line-height: 1.45;
+}
+.doc-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.65rem;
+  margin: 0 0 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.doc-label span {
+  display: inline-block;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 0.2rem;
+  background: var(--panel);
+  color: var(--ink);
+  letter-spacing: 0.04em;
 }
 .pdf-viewer {
   width: 100%;
-  height: min(78vh, 52rem);
-  min-height: 28rem;
+  height: min(80vh, 56rem);
+  min-height: 30rem;
   border: 1px solid var(--line);
   border-radius: 0.5rem;
   background: var(--panel);

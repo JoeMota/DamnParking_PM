@@ -37,13 +37,14 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull request
 | Home | `index.html` |
 | About Us | `about/` |
 | Sprint 1 | `sprint1/` |
-| Market Research | `sprint1/market-research.html` (+ PDF) |
+| Market Research | `sprint1/market-research.html` (+ PDFs) |
 | Business Strategy | `sprint1/business-strategy.html` (+ PDF) |
 | Project Charter | `sprint1/project-charter.html` (+ PDF) |
+| Retrospective | `sprint1/retrospective.html` (+ PDF) |
 | Contributions & AI | `sprint1/contributions.html` (+ PDF) |
 | Sprint 2 (slot) | `sprint2/` |
 
-PDFs live in `assets/pdfs/`. Sprint retrospectives and peer evaluations are **not** on this site (Blackboard only).
+PDFs live in `assets/pdfs/`. Each Sprint 1 document page embeds a scrollable on-page viewer (~80vh) and a download button. Peer evaluations stay off this site.
 
 ## Team notes
 
