@@ -342,10 +342,14 @@ def check_http_smoke(failures: Failures) -> None:
 def check_no_retrospective_published(failures: Failures) -> None:
     """Course rule: Sprint Retrospective stays on Blackboard — never on the public portal."""
     banned = re.compile(r"retrospect", re.IGNORECASE)
-    # Allow the word in explanatory "not published" copy, but never as a PDF asset/link.
-    for pdf in (ROOT / "assets" / "pdfs").glob("*.pdf"):
-        if banned.search(pdf.name):
-            failures.add(f"retrospective PDF must not be in public assets: {pdf.relative_to(ROOT)}")
+    # Ban any on-disk retrospective artifact (HTML page, PDF, etc.).
+    for path in ROOT.rglob("*"):
+        if ".git" in path.parts or not path.is_file():
+            continue
+        if banned.search(path.name):
+            failures.add(
+                f"retrospective artifact must not be in the public portal: {path.relative_to(ROOT)}"
+            )
     for html_path in ROOT.rglob("*.html"):
         if ".git" in html_path.parts:
             continue
@@ -355,6 +359,10 @@ def check_no_retrospective_published(failures: Failures) -> None:
                 failures.add(
                     f"retrospective PDF linked from {html_path.relative_to(ROOT)}: {href}"
                 )
+        if re.search(r"""href=["'][^"']*retrospective[^"']*["']""", content, re.I):
+            failures.add(
+                f"retrospective page/asset linked from {html_path.relative_to(ROOT)}"
+            )
 
 
 def main() -> int:
