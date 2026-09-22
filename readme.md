@@ -1,8 +1,8 @@
-# Damn Parking — Living Project Portal
+# Damn Parking - Living Project Portal
 
 UTEP **CS 4390 / 5388 Software Project Management** deliverable: a public Living Project Portal for **Damn Parking**, a campus computer-vision concept that turns lot cameras into a live open-stall signal.
 
-This repository is the website source (static HTML/CSS/JS). The 3D lot on the home page is a cinematic visualization — not a production CV system.
+This repository is the website source (static HTML/CSS/JS). The 3D lot on the home page is a cinematic visualization, not a production CV system.
 
 ## Run locally
 
@@ -18,11 +18,11 @@ Or use any static host (GitHub Pages, Netlify, Vercel). Point Pages / Vercel at 
 
 ### Vercel
 
-This site is **static HTML/CSS/JS** — no Preact/React build. `vercel.json` forces Framework Preset **Other** (`framework: null`), skips install/build, serves `outputDirectory: "."`, enables `cleanUrls`, and sets `trailingSlash: false`.
+This site is **static HTML/CSS/JS**, not a Preact/React build. `vercel.json` forces Framework Preset **Other** (`framework: null`), skips install/build, serves `outputDirectory: "."`, enables `cleanUrls`, and sets `trailingSlash: false`.
 
 **Internal links and assets must be root-absolute** (e.g. `/sprint1/market-research.html`, `/assets/pdfs/...`). Relative sibling links break when Vercel serves `/sprint1` without a trailing slash (`market-research.html` resolves to `/market-research` → 404), so PDF pages look missing.
 
-Live (JoeMota): https://damn-parking-pm-theta.vercel.app — also mirrored at https://damn-parking-pm.vercel.app (SaulBurns). If a Vercel project was previously set to Preact, merge this config (or clear the dashboard Build Command) so deploy no longer runs `preact build`.
+Live (JoeMota): https://damn-parking-pm-theta.vercel.app, also mirrored at https://damn-parking-pm.vercel.app (SaulBurns). If a Vercel project was previously set to Preact, merge this config (or clear the dashboard Build Command) so deploy no longer runs `preact build`.
 
 ### Tests / CI
 
@@ -52,7 +52,6 @@ PDFs live in `assets/pdfs/`. Each Sprint 1 document page embeds a scrollable on-
 
 ## Team notes
 
-- Replace placeholder names on About Us / contribution statement with your real roster.
 - Keep web text and PDFs in sync every sprint.
 - From Sprint 2 onward, add a change log on each sprint page.
 

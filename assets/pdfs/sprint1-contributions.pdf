@@ -1,67 +1,74 @@
-%PDF-1.4
+%PDF-1.3
+%“Œ‹ž ReportLab Generated PDF document (opensource)
 1 0 obj
-<< /Type /Catalog /Pages 2 0 R >>
+<<
+/F1 2 0 R /F2 3 0 R
+>>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
 endobj
 4 0 obj
-<< /Length 1036 >>
-stream
-BT
-/F1 11 Tf
-14 TL
-50 800 Td
-(Damn Parking ? Sprint 1 Contributions & AI) Tj
-T*
-( ) Tj
-T*
-(Team: Joe Mota, David Vasquez, Kevin Llamas, Saul Burns) Tj
-T*
-(Sprint: 1  |  Purpose: Contribution statement and AI disclosure) Tj
-T*
-( ) Tj
-T*
-(Contribution statement) Tj
-T*
-(Joe Mota ? Owned: Portal IA, home/3D narrative, site polish. Reviewed: Charter scope; About.) Tj
-T*
-(David Vasquez ? Owned: Market research synthesis, pivots. Reviewed: Business strategy.) Tj
-T*
-(Kevin Llamas ? Owned: Business strategy; charter draft. Reviewed: Market research evidence.) Tj
-T*
-(Saul Burns ? Owned: CV feasibility / charter risks. Reviewed: Out-of-scope; stakeholders.) Tj
-T*
-( ) Tj
-T*
-(AI use disclosure) Tj
-T*
-(Cursor / generative AI assisted portal construction and initial drafts of Sprint 1 PM) Tj
-T*
-(artifacts for team review. The team rejected payment/reservation framing, rewrote the) Tj
-T*
-(market top-pick around camera reuse, tightened charter out-of-scope, and kept go/no-go) Tj
-T*
-(justifications and individual memos human-owned.) Tj
-ET
-endstream
+<<
+/Contents 8 0 R /MediaBox [ 0 0 612 792 ] /Parent 7 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
 endobj
 5 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+<<
+/PageMode /UseNone /Pages 7 0 R /Type /Catalog
+>>
+endobj
+6 0 obj
+<<
+/Author (anonymous) /CreationDate (D:20260922201832+00'00') /Creator (anonymous) /Keywords () /ModDate (D:20260922201832+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (unspecified) /Title (untitled) /Trapped /False
+>>
+endobj
+7 0 obj
+<<
+/Count 1 /Kids [ 4 0 R ] /Type /Pages
+>>
+endobj
+8 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 967
+>>
+stream
+GatU1gMYb8&:Ml+S>RP`7-bK=;3e&V8W#D9+N-\>ig8nM.':2<AbRB77R+US/e^7)&VDY\#f;+Z1ZpO23G.iMpV3^/?C.%nRq'/t=_#0.?_Y3Mg[\KS?V%#s?_4Grp%ctoj[-[;PRX5!TuLP/r_D3"$=(&HgF/-\ib\8`cP3dn!C,N*hp,'TUAXNhKL!k0LrH+hQTqTuJ<Hm7j*/Q=i$(m7:!)=9nhs22LA&3q*u+]HHp>GohJ8$"6OeaSBWG^*QKMUJ&UsnPjBEFFr=p9)8<Fi,RUdolL.V\^>Y(IdNOj@6hM8V-M]VV4J?^AcRD`aC`/f+;V6ItZq+(]gCqQg3)Vt0W2Z'<KWV'K-eWs?KgQ(Y^^DnHi^r974CKJOYH2^#6Z`NT4@#P24d_Lc@Q:>>F!e2R):Q0Vi3=*_3kJaDP>P8d(T"BeU#WbAVct4YjCfU,eA=&XPkD#!L`<j\XB0O'>0Q*u4(X'I0HQ<_:I8=/7$!Q%<Jtfi"V@nGtcMH&"I?%hZD0=>`;!"[:!NnVWJB`kS,J;+n,p.8(9%qf>7?dlS0+RR3r"4:igMf^9V]A4E*TpaD7s6DX95i.cX@1Y4fL]`/o`?4j%]DNJh$s;I+A1E[,Wp7n4S9]HmsA?fa9*Dd6Y^F6QE/49@f%1T&Pf=TP#Y$B,-iq,P,%g7ll34$CA`,BL"!lMaMX*qY!oDASbrLIm>ce4B..L?T;#^0q^rL]l=1rfoi'J&4i#7!eNdnG-LiUb'_;fJKclSt6Kr__Xc6aRRbMd!$^>tLMpf'!@c/JXaPmo:/qS*qMl'NG>03>X-iRlPE<<-$_"Z\sk$obU:+/A"E<nPf\.`OP/$4NsIkY\0GCa,We@K,TjNV[$N8#%WJ[D0Lo'Maa:e*D8Wu8j_L?'KF;F@m3#>sO3=R>"P6:+af\_itR%6#n1b\P*G6[./4Z6VbS=@#LqH`eF\`3XpnMP=P'~>endstream
 endobj
 xref
-0 6
+0 9
 0000000000 65535 f 
-0000000009 00000 n 
-0000000058 00000 n 
-0000000115 00000 n 
-0000000241 00000 n 
-0000001329 00000 n 
+0000000061 00000 n 
+0000000102 00000 n 
+0000000209 00000 n 
+0000000321 00000 n 
+0000000514 00000 n 
+0000000582 00000 n 
+0000000843 00000 n 
+0000000902 00000 n 
 trailer
-<< /Size 6 /Root 1 0 R >>
+<<
+/ID 
+[<9410ec42f920d2f1b730307958a3c15b><9410ec42f920d2f1b730307958a3c15b>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 6 0 R
+/Root 5 0 R
+/Size 9
+>>
 startxref
-1399
+1959
 %%EOF
