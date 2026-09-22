@@ -525,7 +525,8 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
   padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--line);
 }
-.doc-toolbar .pdf-link {
+.doc-toolbar .pdf-link,
+.pdf-link {
   display: inline-flex;
   align-items: center;
   padding: 0.55rem 1.1rem;
@@ -535,10 +536,110 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
   background: var(--ink);
   border-radius: 0.25rem;
 }
-.doc-toolbar .pdf-link:hover {
+.doc-toolbar .pdf-link:hover,
+.pdf-link:hover {
   background: var(--accent);
   color: var(--white);
   text-decoration: none;
+}
+
+/* Inline PDF viewers — readable scroll on-page */
+.pdf-panel {
+  margin: 2.5rem 0 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.pdf-panel:first-of-type {
+  margin-top: 1.5rem;
+}
+.pdf-panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.pdf-panel-header h2,
+.pdf-panel-header h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.pdf-panel-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0.35rem 0 0;
+  max-width: 40rem;
+}
+.pdf-viewer {
+  width: 100%;
+  height: min(78vh, 52rem);
+  min-height: 28rem;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--panel);
+  overflow: hidden;
+}
+.pdf-viewer iframe,
+.pdf-viewer object,
+.pdf-viewer embed {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--white);
+}
+.doc-body.with-pdfs {
+  max-width: min(100%, 56rem);
+}
+.page-main .container:has(.pdf-panel) {
+  max-width: min(100% - 3rem, 56rem);
+}
+
+/* Coming soon tiles / soft links */
+.tile.tile-soon,
+.tile-soon {
+  cursor: default;
+  opacity: 0.78;
+  background: #f7f7f7;
+}
+a.tile.tile-soon {
+  cursor: pointer;
+  pointer-events: auto;
+}
+.tile.tile-soon:hover {
+  transform: none;
+  box-shadow: none;
+}
+div.tile.tile-soon {
+  pointer-events: none;
+}
+.tile-soon .tile-arrow {
+  color: var(--muted);
+}
+.status-pill.soon {
+  background: var(--panel);
+  color: var(--muted);
+}
+.nav-links a[aria-disabled="true"],
+.nav-soon {
+  opacity: 0.55;
+  cursor: default;
+  pointer-events: none;
+}
+.coming-soon-block {
+  text-align: center;
+  padding: 2.5rem 1rem 1rem;
+}
+.coming-soon-block h2 {
+  margin-bottom: 0.75rem;
+}
+.coming-soon-block p {
+  color: var(--muted);
+  max-width: 32rem;
+  margin-inline: auto;
 }
 
 .team-grid {
