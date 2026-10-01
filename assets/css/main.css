@@ -783,6 +783,24 @@ div.tile.tile-soon {
   line-height: 1.55;
   text-wrap: pretty;
 }
+.member-linkedin {
+  display: inline-block;
+  margin-top: auto;
+  padding-top: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.member-linkedin:hover,
+.member-linkedin:focus-visible {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
 @media (min-width: 48rem) {
   .member {
     flex-direction: row;
