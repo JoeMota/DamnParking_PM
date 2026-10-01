@@ -76,11 +76,19 @@ function bootScene(host) {
   const camState = { theta: 0.72, phi: 0.78, radius: 23 };
   const camGoal = { theta: 0.72, phi: 0.78, radius: 23 };
 
-  const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: false,
-    powerPreference: 'high-performance',
-  });
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: false,
+      powerPreference: 'high-performance',
+    });
+  } catch (err) {
+    console.warn('Damn Parking 3D lot unavailable:', err);
+    host.innerHTML =
+      '<p class="hero-orbit-hint" style="position:absolute;inset:auto 1rem 40%;text-align:center;width:calc(100% - 2rem)">3D lot preview needs WebGL in this browser.</p>';
+    return;
+  }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setClearColor(0x07080a, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -586,31 +594,46 @@ function bootScene(host) {
       metalness: 0.04,
     });
 
-    const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.16, 0.38, 4, 8), shirt);
-    torso.position.y = 1.05;
+    const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.16, 0.48, 14), shirt);
+    torso.position.y = 1.08;
     torso.castShadow = true;
 
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.14, 14, 14), skin);
-    head.position.y = 1.48;
+    const shoulders = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.12, 0.18), shirt);
+    shoulders.position.y = 1.3;
+    shoulders.castShadow = true;
+
+    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.08, 8), skin);
+    neck.position.y = 1.4;
+
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 16), skin);
+    head.position.y = 1.55;
     head.castShadow = true;
 
-    const hip = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.12, 0.18), pants);
-    hip.position.y = 0.78;
+    const hip = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.14, 0.2), pants);
+    hip.position.y = 0.8;
     hip.castShadow = true;
 
-    const armL = new THREE.Mesh(new THREE.CapsuleGeometry(0.045, 0.32, 3, 6), shirt);
-    armL.position.set(-0.22, 1.05, 0);
+    const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.04, 0.46, 8), shirt);
+    armL.position.set(-0.24, 1.05, 0);
     armL.castShadow = true;
     const armR = armL.clone();
-    armR.position.x = 0.22;
+    armR.position.x = 0.24;
 
-    const legL = new THREE.Mesh(new THREE.CapsuleGeometry(0.055, 0.42, 3, 6), pants);
-    legL.position.set(-0.08, 0.42, 0);
+    const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.05, 0.58, 8), pants);
+    legL.position.set(-0.09, 0.42, 0);
     legL.castShadow = true;
     const legR = legL.clone();
-    legR.position.x = 0.08;
+    legR.position.x = 0.09;
 
-    person.add(torso, head, hip, armL, armR, legL, legR);
+    const shoeL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.05, 0.16), new THREE.MeshStandardMaterial({
+      color: 0x1a1a1a,
+      roughness: 0.9,
+    }));
+    shoeL.position.set(-0.09, 0.05, 0.03);
+    const shoeR = shoeL.clone();
+    shoeR.position.x = 0.09;
+
+    person.add(torso, shoulders, neck, head, hip, armL, armR, legL, legR, shoeL, shoeR);
     person.userData.armL = armL;
     person.userData.armR = armR;
     person.userData.legL = legL;
