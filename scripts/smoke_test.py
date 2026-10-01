@@ -446,6 +446,8 @@ def check_http_smoke(failures: Failures) -> None:
                 "populateCityBlock",
                 "makeStreetTexture",
                 "addSkyDome",
+                "MeshPhysicalMaterial",
+                "SpotLight",
             ):
                 if needle not in scene:
                     failures.add(f"parking-scene.js missing expected feature marker: {needle}")
