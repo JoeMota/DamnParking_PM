@@ -437,7 +437,18 @@ def check_http_smoke(failures: Failures) -> None:
                 scene = resp.read().decode("utf-8", errors="replace")
             if "THREE" not in scene and "three" not in scene:
                 failures.add("parking-scene.js does not appear to reference Three.js")
-            for needle in ("makePerson", "updatePeople", "pointerdown", "buildLeavePath", "buildArrivePath"):
+            for needle in (
+                "makePerson",
+                "updatePeople",
+                "pointerdown",
+                "buildLeavePath",
+                "buildArrivePath",
+                "populateCityBlock",
+                "makeStreetTexture",
+                "addSkyDome",
+                "MeshPhysicalMaterial",
+                "SpotLight",
+            ):
                 if needle not in scene:
                     failures.add(f"parking-scene.js missing expected feature marker: {needle}")
     finally:
