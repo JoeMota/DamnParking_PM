@@ -28,6 +28,8 @@ REQUIRED_PAGES = [
     "sprint1/retrospective.html",
     "sprint1/contributions.html",
     "sprint2/index.html",
+    "sprint2/estimation.html",
+    "sprint2/budget.html",
 ]
 
 REQUIRED_ASSETS = [
@@ -45,10 +47,19 @@ REQUIRED_ASSETS = [
     "assets/pdfs/sprint1-project-charter.pdf",
     "assets/pdfs/sprint1-retrospective.pdf",
     "assets/pdfs/sprint1-contributions.pdf",
+    "assets/pdfs/sprint2-project-estimation-starter.pdf",
+    "assets/pdfs/sprint2-estimation-activity.pdf",
 ]
 
 REQUIRED_SECTIONS = {
-    "index.html": ["Damn Parking", "parking-canvas", "assets/js/parking-scene.js", "Coming soon"],
+    "index.html": [
+        "Damn Parking",
+        "parking-canvas",
+        "assets/js/parking-scene.js",
+        "Sprint 2",
+        "Estimation",
+        "/sprint2/index.html",
+    ],
     "about/index.html": [
         "About",
         "site-nav",
@@ -76,7 +87,24 @@ REQUIRED_SECTIONS = {
     "sprint1/business-strategy.html": ["Business Strategy", "pdf-link", "pdf-viewer", "doc-label"],
     "sprint1/retrospective.html": ["Retrospective", "pdf-link", "pdf-viewer", "sprint1-retrospective.pdf", "doc-label"],
     "sprint1/contributions.html": ["Contributions", "pdf-viewer", "pdf-link", "doc-label"],
-    "sprint2/index.html": ["Coming soon"],
+    "sprint2/index.html": [
+        "Sprint 2",
+        "Estimation",
+        "Budget One Pager",
+        "Change log",
+        "estimation.html",
+        "budget.html",
+    ],
+    "sprint2/estimation.html": [
+        "Estimation",
+        "pdf-viewer",
+        "pdf-link",
+        "doc-label",
+        "sprint2-project-estimation-starter.pdf",
+        "sprint2-estimation-activity.pdf",
+        "Download PDF",
+    ],
+    "sprint2/budget.html": ["Budget One Pager", "Coming soon"],
 }
 
 SMOKE_PATHS = [
@@ -93,6 +121,8 @@ SMOKE_PATHS = [
     "/sprint1/contributions.html",
     "/sprint2/",
     "/sprint2/index.html",
+    "/sprint2/estimation.html",
+    "/sprint2/budget.html",
     "/assets/css/main.css",
     "/assets/js/site.js",
     "/assets/js/parking-scene.js",
@@ -107,6 +137,8 @@ SMOKE_PATHS = [
     "/assets/pdfs/sprint1-project-charter.pdf",
     "/assets/pdfs/sprint1-retrospective.pdf",
     "/assets/pdfs/sprint1-contributions.pdf",
+    "/assets/pdfs/sprint2-project-estimation-starter.pdf",
+    "/assets/pdfs/sprint2-estimation-activity.pdf",
 ]
 
 PDF_HREF_RE = re.compile(
