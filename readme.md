@@ -46,14 +46,16 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull request
 | Project Charter | `sprint1/project-charter.html` (+ PDF) |
 | Retrospective | `sprint1/retrospective.html` (+ PDF) |
 | Contributions & AI | `sprint1/contributions.html` (+ PDF) |
-| Sprint 2 (slot) | `sprint2/` |
+| Sprint 2 | `sprint2/` |
+| Estimation | `sprint2/estimation.html` (+ PDFs) |
+| Budget One Pager | `sprint2/budget.html` (coming soon) |
 
-PDFs live in `assets/pdfs/`. Each Sprint 1 document page embeds a scrollable on-page viewer (~80vh) and a download button. Peer evaluations stay off this site.
+PDFs live in `assets/pdfs/`. Each document page embeds a scrollable on-page viewer (~80vh) and a download button. Peer evaluations stay off this site.
 
 ## Team notes
 
 - Keep web text and PDFs in sync every sprint.
-- From Sprint 2 onward, add a change log on each sprint page.
+- Sprint 2 hub includes a change log; update it when new artifacts land.
 
 ## Stack
 
