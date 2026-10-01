@@ -157,12 +157,24 @@ body:not(.page-home) .site-nav {
   position: absolute;
   inset: 0;
   z-index: 0;
+  /* Let empty hero space pass pointer events to the WebGL canvas */
+  pointer-events: auto;
 }
 
 #parking-canvas {
   width: 100%;
   height: 100%;
   display: block;
+  touch-action: none;
+  cursor: grab;
+}
+
+#parking-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none;
+  cursor: grab;
 }
 
 .hero-gradient {
@@ -180,6 +192,21 @@ body:not(.page-home) .site-nav {
   width: min(100% - 2rem, 40rem);
   padding-bottom: 1.5rem;
   animation: fade-up 1s var(--ease) both;
+  pointer-events: none;
+}
+
+.hero-content .btn,
+.hero-content a {
+  pointer-events: auto;
+}
+
+.hero-orbit-hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .hero-brand {
@@ -271,6 +298,7 @@ body:not(.page-home) .site-nav {
   flex-wrap: wrap;
   padding: 0 1.5rem 2.75rem;
   animation: fade-up 1s 0.15s var(--ease) both;
+  pointer-events: none;
 }
 
 .hud-cell { text-align: center; min-width: 4.5rem; }
