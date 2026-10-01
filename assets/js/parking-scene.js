@@ -68,13 +68,13 @@ function lerp(a, b, t) {
 
 function bootScene(host) {
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x07080a);
-  scene.fog = new THREE.Fog(0x07080a, 30, 62);
+  scene.background = new THREE.Color(0x0b0d12);
+  scene.fog = new THREE.Fog(0x0b0d12, 70, 140);
 
-  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 160);
   const camTarget = new THREE.Vector3(0, 0.35, 0);
-  const camState = { theta: 0.72, phi: 0.78, radius: 23 };
-  const camGoal = { theta: 0.72, phi: 0.78, radius: 23 };
+  const camState = { theta: 0.85, phi: 0.88, radius: 34 };
+  const camGoal = { theta: 0.85, phi: 0.88, radius: 34 };
 
   let renderer;
   try {
@@ -90,7 +90,7 @@ function bootScene(host) {
     return;
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setClearColor(0x07080a, 1);
+  renderer.setClearColor(0x0b0d12, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.08;
@@ -109,87 +109,222 @@ function bootScene(host) {
   key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048);
   key.shadow.camera.near = 2;
-  key.shadow.camera.far = 55;
-  key.shadow.camera.left = -22;
-  key.shadow.camera.right = 22;
-  key.shadow.camera.top = 18;
-  key.shadow.camera.bottom = -18;
+  key.shadow.camera.far = 90;
+  key.shadow.camera.left = -40;
+  key.shadow.camera.right = 40;
+  key.shadow.camera.top = 34;
+  key.shadow.camera.bottom = -34;
   key.shadow.bias = -0.00025;
   key.shadow.normalBias = 0.03;
   scene.add(key);
 
-  const fill = new THREE.DirectionalLight(0x8eb6ff, 0.52);
+  const fill = new THREE.DirectionalLight(0x8eb6ff, 0.45);
   fill.position.set(-12, 8, -6);
   scene.add(fill);
 
-  const rim = new THREE.DirectionalLight(0xffffff, 0.32);
+  const rim = new THREE.DirectionalLight(0xffffff, 0.28);
   rim.position.set(0, 6, -14);
   scene.add(rim);
 
-  const pool = new THREE.PointLight(0xffc98a, 18, 30, 2);
-  pool.position.set(0, 7, 0);
+  // Steady lot fill light (no pulsing)
+  const pool = new THREE.PointLight(0xffc98a, 14, 34, 2);
+  pool.position.set(0, 8, 0);
   scene.add(pool);
 
   const asphaltTex = makeAsphaltTexture();
   asphaltTex.wrapS = asphaltTex.wrapT = THREE.RepeatWrapping;
-  asphaltTex.repeat.set(4, 3);
+  asphaltTex.repeat.set(8, 8);
 
-  const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(60, 44),
+  // City block base
+  const cityGround = new THREE.Mesh(
+    new THREE.PlaneGeometry(140, 140),
+    new THREE.MeshStandardMaterial({
+      color: 0x12151c,
+      roughness: 0.96,
+      metalness: 0.02,
+    })
+  );
+  cityGround.rotation.x = -Math.PI / 2;
+  cityGround.position.y = -0.02;
+  cityGround.receiveShadow = true;
+  scene.add(cityGround);
+
+  // Street ring around the lot (solid asphalt, no stacked overlays)
+  const streetMat = new THREE.MeshStandardMaterial({
+    color: 0x2a2f38,
+    roughness: 0.96,
+    metalness: 0.02,
+  });
+  const street = new THREE.Mesh(new THREE.PlaneGeometry(72, 56), streetMat);
+  street.rotation.x = -Math.PI / 2;
+  street.position.y = 0.002;
+  street.receiveShadow = true;
+  scene.add(street);
+
+  // Parking lot pad
+  const lotPad = new THREE.Mesh(
+    new THREE.PlaneGeometry(34, 22),
     new THREE.MeshStandardMaterial({
       map: asphaltTex,
-      color: 0xffffff,
+      color: 0xc8ccd4,
       roughness: 0.92,
       metalness: 0.04,
     })
   );
-  ground.rotation.x = -Math.PI / 2;
-  ground.receiveShadow = true;
-  scene.add(ground);
+  lotPad.rotation.x = -Math.PI / 2;
+  lotPad.position.y = 0.02;
+  lotPad.receiveShadow = true;
+  scene.add(lotPad);
 
-  const sheen = new THREE.Mesh(
-    new THREE.PlaneGeometry(60, 44),
-    new THREE.MeshStandardMaterial({
-      color: 0x111318,
-      roughness: 0.32,
-      metalness: 0.18,
-      transparent: true,
-      opacity: 0.22,
-    })
-  );
-  sheen.rotation.x = -Math.PI / 2;
-  sheen.position.y = 0.008;
-  sheen.receiveShadow = true;
-  scene.add(sheen);
-
-  // Sidewalks / pedestrian paths
+  // Clean sidewalks: flat planes only (avoids z-fight flicker from stacked boxes)
   const walkMat = new THREE.MeshStandardMaterial({
-    color: 0x8a8680,
-    roughness: 0.88,
-    metalness: 0.05,
-  });
-  const curbMat = new THREE.MeshStandardMaterial({
-    color: 0xc9c4ba,
-    roughness: 0.7,
-    metalness: 0.08,
+    color: 0x6e6a64,
+    roughness: 0.98,
+    metalness: 0.0,
   });
 
-  function addWalkStrip(w, d, x, z, y = 0.03) {
-    const slab = new THREE.Mesh(new THREE.BoxGeometry(w, 0.06, d), walkMat);
-    slab.position.set(x, y, z);
+  function addWalkStrip(w, d, x, z) {
+    const slab = new THREE.Mesh(new THREE.PlaneGeometry(w, d), walkMat);
+    slab.rotation.x = -Math.PI / 2;
+    slab.position.set(x, 0.045, z);
     slab.receiveShadow = true;
-    slab.castShadow = true;
     scene.add(slab);
-    const curb = new THREE.Mesh(new THREE.BoxGeometry(w + 0.08, 0.1, d + 0.08), curbMat);
-    curb.position.set(x, y - 0.02, z);
-    curb.receiveShadow = true;
-    scene.add(curb);
   }
 
-  addWalkStrip(52, 2.2, 0, -14.2);
-  addWalkStrip(52, 2.2, 0, 14.2);
-  addWalkStrip(2.2, 28, -16.5, 0);
-  addWalkStrip(2.2, 28, 16.5, 0);
+  // Inner sidewalk hugging the lot
+  addWalkStrip(38, 2.2, 0, -12.3);
+  addWalkStrip(38, 2.2, 0, 12.3);
+  addWalkStrip(2.2, 22, -18, 0);
+  addWalkStrip(2.2, 22, 18, 0);
+  // Outer sidewalk across the street (building side)
+  addWalkStrip(64, 2.0, 0, -26.2);
+  addWalkStrip(64, 2.0, 0, 26.2);
+  addWalkStrip(2.0, 50, -33.5, 0);
+  addWalkStrip(2.0, 50, 33.5, 0);
+
+  // Street lane markings (steady, non-emissive)
+  const laneMat = new THREE.MeshStandardMaterial({
+    color: 0xe8e2c8,
+    roughness: 0.7,
+    metalness: 0.05,
+  });
+  const centerLaneMat = new THREE.MeshStandardMaterial({
+    color: 0xd4b84a,
+    roughness: 0.65,
+    metalness: 0.06,
+  });
+
+  function addLaneDashes(axis, fixed, start, end, step, len, colorMat) {
+    for (let v = start; v <= end; v += step) {
+      const dash =
+        axis === 'x'
+          ? new THREE.Mesh(new THREE.BoxGeometry(len, 0.02, 0.12), colorMat)
+          : new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.02, len), colorMat);
+      if (axis === 'x') dash.position.set(v, 0.02, fixed);
+      else dash.position.set(fixed, 0.02, v);
+      dash.receiveShadow = true;
+      scene.add(dash);
+    }
+  }
+
+  // North / south street center dashes
+  addLaneDashes('x', -19.2, -28, 28, 2.6, 1.15, centerLaneMat);
+  addLaneDashes('x', 19.2, -28, 28, 2.6, 1.15, centerLaneMat);
+  // East / west street center dashes
+  addLaneDashes('z', -24.8, -16, 16, 2.6, 1.15, centerLaneMat);
+  addLaneDashes('z', 24.8, -16, 16, 2.6, 1.15, centerLaneMat);
+  // Soft edge lines near lot sidewalks
+  addLaneDashes('x', -13.6, -15, 15, 3.4, 1.5, laneMat);
+  addLaneDashes('x', 13.6, -15, 15, 3.4, 1.5, laneMat);
+
+  // Surrounding campus / street buildings
+  const buildingPalette = [
+    { wall: 0x3a4250, accent: 0x262c36, glass: 0x9ec4d8 },
+    { wall: 0x454c58, accent: 0x2d333d, glass: 0xa8cde0 },
+    { wall: 0x4a433c, accent: 0x322c27, glass: 0xb0c6d4 },
+    { wall: 0x3f4754, accent: 0x282f39, glass: 0x8eb6cc },
+    { wall: 0x4b515c, accent: 0x323740, glass: 0xa2c0d0 },
+  ];
+
+  function makeBuilding(w, h, d, x, z, palette, rotY = 0) {
+    const group = new THREE.Group();
+    const wallMat = new THREE.MeshStandardMaterial({
+      color: palette.wall,
+      roughness: 0.86,
+      metalness: 0.08,
+    });
+    const accentMat = new THREE.MeshStandardMaterial({
+      color: palette.accent,
+      roughness: 0.8,
+      metalness: 0.1,
+    });
+    const glassMat = new THREE.MeshStandardMaterial({
+      color: palette.glass,
+      emissive: palette.glass,
+      emissiveIntensity: 0.32,
+      roughness: 0.28,
+      metalness: 0.4,
+    });
+
+    const body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), wallMat);
+    body.position.y = h / 2;
+    body.castShadow = true;
+    body.receiveShadow = true;
+    group.add(body);
+
+    const base = new THREE.Mesh(new THREE.BoxGeometry(w + 0.35, 0.35, d + 0.35), accentMat);
+    base.position.y = 0.18;
+    base.receiveShadow = true;
+    group.add(base);
+
+    const roof = new THREE.Mesh(new THREE.BoxGeometry(w * 0.96, 0.22, d * 0.96), accentMat);
+    roof.position.y = h + 0.05;
+    roof.castShadow = true;
+    group.add(roof);
+
+    // Quiet window grid on the long faces
+    const cols = Math.max(3, Math.floor(w / 2.4));
+    const rows = Math.max(3, Math.floor(h / 2.6));
+    const winW = Math.min(1.1, (w - 1.2) / cols);
+    const winH = Math.min(1.35, (h - 2.2) / rows);
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if ((r + c) % 3 === 0) continue;
+        const win = new THREE.Mesh(new THREE.PlaneGeometry(winW * 0.72, winH * 0.62), glassMat);
+        const wx = -w / 2 + 0.9 + c * ((w - 1.8) / Math.max(cols - 1, 1));
+        const wy = 1.4 + r * ((h - 2.4) / Math.max(rows - 1, 1));
+        win.position.set(wx, wy, d / 2 + 0.02);
+        group.add(win);
+        const winBack = win.clone();
+        winBack.position.z = -d / 2 - 0.02;
+        winBack.rotation.y = Math.PI;
+        group.add(winBack);
+      }
+    }
+
+    group.position.set(x, 0, z);
+    group.rotation.y = rotY;
+    scene.add(group);
+    return group;
+  }
+
+  const buildings = [
+    { w: 16, h: 12, d: 8, x: -10, z: -32, p: 0 },
+    { w: 12, h: 16, d: 8, x: 12, z: -33, p: 1 },
+    { w: 10, h: 10, d: 7, x: 28, z: -30, p: 2 },
+    { w: 12, h: 14, d: 8, x: 36, z: -12, p: 3 },
+    { w: 10, h: 11, d: 8, x: 35, z: 8, p: 4 },
+    { w: 14, h: 13, d: 8, x: 28, z: 30, p: 0 },
+    { w: 12, h: 11, d: 8, x: 8, z: 33, p: 1 },
+    { w: 12, h: 15, d: 8, x: -12, z: 33, p: 2 },
+    { w: 10, h: 10, d: 7, x: -28, z: 28, p: 3 },
+    { w: 12, h: 12, d: 8, x: -36, z: 6, p: 4 },
+    { w: 11, h: 16, d: 8, x: -35, z: -12, p: 0 },
+    { w: 10, h: 9, d: 7, x: -26, z: -30, p: 1 },
+  ];
+  buildings.forEach((b) => {
+    makeBuilding(b.w, b.h, b.d, b.x, b.z, buildingPalette[b.p % buildingPalette.length]);
+  });
 
   const lotGroup = new THREE.Group();
   scene.add(lotGroup);
@@ -204,17 +339,13 @@ function bootScene(host) {
 
   const lineMat = new THREE.MeshStandardMaterial({
     color: 0xf2f0ea,
-    roughness: 0.55,
-    metalness: 0.05,
-    emissive: 0xf2f0ea,
-    emissiveIntensity: 0.08,
+    roughness: 0.65,
+    metalness: 0.04,
   });
   const aisleMat = new THREE.MeshStandardMaterial({
-    color: 0xe6b422,
-    roughness: 0.5,
-    metalness: 0.1,
-    emissive: 0xe6b422,
-    emissiveIntensity: 0.12,
+    color: 0xd4b84a,
+    roughness: 0.6,
+    metalness: 0.06,
   });
 
   function makeStall(ix, iy) {
@@ -236,11 +367,12 @@ function bootScene(host) {
       new THREE.MeshStandardMaterial({
         color: 0x12a15c,
         emissive: 0x12a15c,
-        emissiveIntensity: 0.35,
+        emissiveIntensity: 0.16,
         transparent: true,
-        opacity: 0.18,
+        opacity: 0.14,
         roughness: 1,
         metalness: 0,
+        depthWrite: false,
       })
     );
     glow.rotation.x = -Math.PI / 2;
@@ -278,30 +410,32 @@ function bootScene(host) {
     lotGroup.add(dash);
   }
 
-  // Soft lamp posts along sidewalks
+  // Soft street lamps (steady intensity, no flicker)
   const lampMat = new THREE.MeshStandardMaterial({ color: 0x2a2e36, metalness: 0.85, roughness: 0.35 });
+  const lampGlowMat = new THREE.MeshStandardMaterial({
+    color: 0xffe2b0,
+    emissive: 0xffc98a,
+    emissiveIntensity: 0.55,
+    roughness: 0.4,
+  });
   [
-    [-15, -12],
-    [15, -12],
-    [-15, 12],
-    [15, 12],
+    [-17, -12.3],
+    [17, -12.3],
+    [-17, 12.3],
+    [17, 12.3],
+    [-24, -19.2],
+    [24, -19.2],
+    [-24, 19.2],
+    [24, 19.2],
   ].forEach(([lx, lz]) => {
     const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.1, 5.2, 12), lampMat);
     pole.position.set(lx, 2.6, lz);
     pole.castShadow = true;
     scene.add(pole);
-    const lamp = new THREE.Mesh(
-      new THREE.SphereGeometry(0.22, 14, 14),
-      new THREE.MeshStandardMaterial({
-        color: 0xffe2b0,
-        emissive: 0xffc98a,
-        emissiveIntensity: 1.1,
-        roughness: 0.35,
-      })
-    );
+    const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.2, 12, 12), lampGlowMat);
     lamp.position.set(lx, 5.3, lz);
     scene.add(lamp);
-    const lampLight = new THREE.PointLight(0xffc98a, 10, 16, 2);
+    const lampLight = new THREE.PointLight(0xffc98a, 6.5, 18, 2);
     lampLight.position.set(lx, 5.1, lz);
     scene.add(lampLight);
   });
@@ -471,7 +605,7 @@ function bootScene(host) {
   function setStallVisual(stall, occupied, instant = false) {
     stall.occupied = occupied;
     stall.glowTarget.set(occupied ? 0xc62828 : 0x12a15c);
-    stall.glowOpacityTarget = occupied ? 0.12 : 0.22;
+    stall.glowOpacityTarget = occupied ? 0.1 : 0.16;
     if (instant) {
       stall.glowColor.copy(stall.glowTarget);
       stall.glowOpacity = stall.glowOpacityTarget;
@@ -643,57 +777,55 @@ function bootScene(host) {
     return person;
   }
 
-  // Closed sidewalk loops and crosswalk-ish paths in world space
+  // Pedestrian routes stay on sidewalks (not in the street)
   const walkRoutes = [
-    // Outer south sidewalk (left to right)
+    // Inner lot sidewalk loop
     [
-      new THREE.Vector3(-15, 0, -14.2),
-      new THREE.Vector3(-5, 0, -14.2),
-      new THREE.Vector3(5, 0, -14.2),
-      new THREE.Vector3(15, 0, -14.2),
-      new THREE.Vector3(15, 0, -8),
-      new THREE.Vector3(15, 0, 0),
-      new THREE.Vector3(15, 0, 8),
-      new THREE.Vector3(15, 0, 14.2),
-      new THREE.Vector3(5, 0, 14.2),
-      new THREE.Vector3(-5, 0, 14.2),
-      new THREE.Vector3(-15, 0, 14.2),
-      new THREE.Vector3(-15, 0, 8),
-      new THREE.Vector3(-15, 0, 0),
-      new THREE.Vector3(-15, 0, -8),
-      new THREE.Vector3(-15, 0, -14.2),
+      new THREE.Vector3(-17, 0, -12.4),
+      new THREE.Vector3(-6, 0, -12.4),
+      new THREE.Vector3(6, 0, -12.4),
+      new THREE.Vector3(17, 0, -12.4),
+      new THREE.Vector3(18.2, 0, -6),
+      new THREE.Vector3(18.2, 0, 0),
+      new THREE.Vector3(18.2, 0, 6),
+      new THREE.Vector3(17, 0, 12.4),
+      new THREE.Vector3(6, 0, 12.4),
+      new THREE.Vector3(-6, 0, 12.4),
+      new THREE.Vector3(-17, 0, 12.4),
+      new THREE.Vector3(-18.2, 0, 6),
+      new THREE.Vector3(-18.2, 0, 0),
+      new THREE.Vector3(-18.2, 0, -6),
+      new THREE.Vector3(-17, 0, -12.4),
     ],
-    // Crossing near west end of aisle
+      // Outer north sidewalk by buildings
     [
-      new THREE.Vector3(-14, 0, -14),
-      new THREE.Vector3(-12, 0, -6),
-      new THREE.Vector3(-11.5, 0, 0),
-      new THREE.Vector3(-12, 0, 6),
-      new THREE.Vector3(-14, 0, 14),
-      new THREE.Vector3(-16, 0, 8),
-      new THREE.Vector3(-16, 0, -8),
-      new THREE.Vector3(-14, 0, -14),
+      new THREE.Vector3(-24, 0, -26.2),
+      new THREE.Vector3(-8, 0, -26.2),
+      new THREE.Vector3(8, 0, -26.2),
+      new THREE.Vector3(24, 0, -26.2),
+      new THREE.Vector3(8, 0, -26.2),
+      new THREE.Vector3(-8, 0, -26.2),
+      new THREE.Vector3(-24, 0, -26.2),
     ],
-    // Crossing near east end
+    // Outer south sidewalk
     [
-      new THREE.Vector3(14, 0, 14),
-      new THREE.Vector3(12, 0, 6),
-      new THREE.Vector3(11.5, 0, 0),
-      new THREE.Vector3(12, 0, -6),
-      new THREE.Vector3(14, 0, -14),
-      new THREE.Vector3(16, 0, -6),
-      new THREE.Vector3(16, 0, 6),
-      new THREE.Vector3(14, 0, 14),
+      new THREE.Vector3(24, 0, 26.2),
+      new THREE.Vector3(8, 0, 26.2),
+      new THREE.Vector3(-8, 0, 26.2),
+      new THREE.Vector3(-24, 0, 26.2),
+      new THREE.Vector3(-8, 0, 26.2),
+      new THREE.Vector3(8, 0, 26.2),
+      new THREE.Vector3(24, 0, 26.2),
     ],
-    // Short south sidewalk shuttle
+    // Outer east sidewalk
     [
-      new THREE.Vector3(-10, 0, -14.2),
-      new THREE.Vector3(-2, 0, -14.2),
-      new THREE.Vector3(4, 0, -14.2),
-      new THREE.Vector3(10, 0, -14.2),
-      new THREE.Vector3(4, 0, -14.2),
-      new THREE.Vector3(-2, 0, -14.2),
-      new THREE.Vector3(-10, 0, -14.2),
+      new THREE.Vector3(33.5, 0, -16),
+      new THREE.Vector3(33.5, 0, -2),
+      new THREE.Vector3(33.5, 0, 10),
+      new THREE.Vector3(33.5, 0, 18),
+      new THREE.Vector3(33.5, 0, 10),
+      new THREE.Vector3(33.5, 0, -2),
+      new THREE.Vector3(33.5, 0, -16),
     ],
   ];
 
@@ -1068,7 +1200,7 @@ function bootScene(host) {
   function onWheel(e) {
     e.preventDefault();
     autoOrbit = false;
-    camGoal.radius = THREE.MathUtils.clamp(camGoal.radius + e.deltaY * 0.012, 12, 34);
+    camGoal.radius = THREE.MathUtils.clamp(camGoal.radius + e.deltaY * 0.012, 14, 48);
     resumeAutoAt = clock.elapsedTime + 4.5;
   }
 
@@ -1086,9 +1218,9 @@ function bootScene(host) {
     }
 
     if (autoOrbit && !drag.active) {
-      camGoal.theta = 0.72 + Math.sin(clock.elapsedTime * 0.11) * 0.65;
-      camGoal.phi = 0.76 + Math.sin(clock.elapsedTime * 0.08) * 0.07;
-      camGoal.radius = 22.5 + Math.sin(clock.elapsedTime * 0.06) * 1.4;
+      camGoal.theta = 0.85 + Math.sin(clock.elapsedTime * 0.09) * 0.45;
+      camGoal.phi = 0.86 + Math.sin(clock.elapsedTime * 0.06) * 0.04;
+      camGoal.radius = 34 + Math.sin(clock.elapsedTime * 0.05) * 1.8;
     } else if (!drag.active && clock.elapsedTime > resumeAutoAt) {
       autoOrbit = true;
     }
@@ -1112,14 +1244,13 @@ function bootScene(host) {
     const t = clock.elapsedTime;
 
     placeCamera(dt);
-    pool.intensity = 16 + Math.sin(t * 0.8) * 2.5;
 
     stalls.forEach((s) => {
       s.glowColor.lerp(s.glowTarget, 1 - Math.exp(-dt * 3));
       s.glowOpacity += (s.glowOpacityTarget - s.glowOpacity) * (1 - Math.exp(-dt * 3));
       s.glow.material.color.copy(s.glowColor);
       s.glow.material.emissive.copy(s.glowColor);
-      s.glow.material.emissiveIntensity = 0.25 + Math.sin(t * 2 + s.ix) * 0.05;
+      s.glow.material.emissiveIntensity = 0.16;
       s.glow.material.opacity = s.glowOpacity;
     });
 
