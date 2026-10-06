@@ -47,8 +47,11 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull request
 | Retrospective | `sprint1/retrospective.html` (+ PDF) |
 | Contributions & AI | `sprint1/contributions.html` (+ PDF) |
 | Sprint 2 | `sprint2/` |
+| Business Case | `sprint2/business-case.html` (+ PDF) |
 | Estimation | `sprint2/estimation.html` (+ PDFs) |
-| Budget One Pager | `sprint2/budget.html` (coming soon) |
+| Budget One Pager | `sprint2/budget.html` (+ PDF) |
+| ROI Analysis | `sprint2/roi.html` (+ PDF) |
+| Change Log | `sprint2/change-log.html` (+ PDF) |
 
 PDFs live in `assets/pdfs/`. Each document page embeds a scrollable on-page viewer (~80vh) and a download button. Peer evaluations stay off this site.
 

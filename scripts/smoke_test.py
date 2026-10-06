@@ -28,8 +28,11 @@ REQUIRED_PAGES = [
     "sprint1/retrospective.html",
     "sprint1/contributions.html",
     "sprint2/index.html",
+    "sprint2/business-case.html",
     "sprint2/estimation.html",
     "sprint2/budget.html",
+    "sprint2/roi.html",
+    "sprint2/change-log.html",
 ]
 
 REQUIRED_ASSETS = [
@@ -49,6 +52,11 @@ REQUIRED_ASSETS = [
     "assets/pdfs/sprint1-contributions.pdf",
     "assets/pdfs/sprint2-project-estimation-starter.pdf",
     "assets/pdfs/sprint2-estimation-activity.pdf",
+    "assets/pdfs/sprint2-estimation-appendix.pdf",
+    "assets/pdfs/sprint2-business-case.pdf",
+    "assets/pdfs/sprint2-budget-one-pager.pdf",
+    "assets/pdfs/sprint2-roi-analysis.pdf",
+    "assets/pdfs/sprint2-change-log.pdf",
 ]
 
 REQUIRED_SECTIONS = {
@@ -58,7 +66,7 @@ REQUIRED_SECTIONS = {
         "assets/js/parking-scene.js",
         "Drag to look around",
         "Sprint 2",
-        "Estimation",
+        "Business case",
         "/sprint2/index.html",
     ],
     "about/index.html": [
@@ -90,22 +98,60 @@ REQUIRED_SECTIONS = {
     "sprint1/contributions.html": ["Contributions", "pdf-viewer", "pdf-link", "doc-label"],
     "sprint2/index.html": [
         "Sprint 2",
+        "Business Case",
         "Estimation",
         "Budget One Pager",
-        "Change log",
+        "ROI Analysis",
+        "Change Log",
+        "business-case.html",
         "estimation.html",
         "budget.html",
+        "roi.html",
+        "change-log.html",
+        "View PDF",
+    ],
+    "sprint2/business-case.html": [
+        "Business Case",
+        "pdf-viewer",
+        "pdf-link",
+        "doc-label",
+        "sprint2-business-case.pdf",
+        "Download PDF",
     ],
     "sprint2/estimation.html": [
         "Estimation",
         "pdf-viewer",
         "pdf-link",
         "doc-label",
+        "sprint2-estimation-appendix.pdf",
         "sprint2-project-estimation-starter.pdf",
         "sprint2-estimation-activity.pdf",
         "Download PDF",
     ],
-    "sprint2/budget.html": ["Budget One Pager", "Coming soon"],
+    "sprint2/budget.html": [
+        "Budget One Pager",
+        "pdf-viewer",
+        "pdf-link",
+        "doc-label",
+        "sprint2-budget-one-pager.pdf",
+        "Download PDF",
+    ],
+    "sprint2/roi.html": [
+        "ROI Analysis",
+        "pdf-viewer",
+        "pdf-link",
+        "doc-label",
+        "sprint2-roi-analysis.pdf",
+        "Download PDF",
+    ],
+    "sprint2/change-log.html": [
+        "Change Log",
+        "pdf-viewer",
+        "pdf-link",
+        "doc-label",
+        "sprint2-change-log.pdf",
+        "Download PDF",
+    ],
 }
 
 SMOKE_PATHS = [
@@ -122,8 +168,11 @@ SMOKE_PATHS = [
     "/sprint1/contributions.html",
     "/sprint2/",
     "/sprint2/index.html",
+    "/sprint2/business-case.html",
     "/sprint2/estimation.html",
     "/sprint2/budget.html",
+    "/sprint2/roi.html",
+    "/sprint2/change-log.html",
     "/assets/css/main.css",
     "/assets/js/site.js",
     "/assets/js/parking-scene.js",
@@ -140,6 +189,11 @@ SMOKE_PATHS = [
     "/assets/pdfs/sprint1-contributions.pdf",
     "/assets/pdfs/sprint2-project-estimation-starter.pdf",
     "/assets/pdfs/sprint2-estimation-activity.pdf",
+    "/assets/pdfs/sprint2-estimation-appendix.pdf",
+    "/assets/pdfs/sprint2-business-case.pdf",
+    "/assets/pdfs/sprint2-budget-one-pager.pdf",
+    "/assets/pdfs/sprint2-roi-analysis.pdf",
+    "/assets/pdfs/sprint2-change-log.pdf",
 ]
 
 PDF_HREF_RE = re.compile(
