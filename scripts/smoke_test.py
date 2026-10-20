@@ -33,6 +33,9 @@ REQUIRED_PAGES = [
     "sprint2/budget.html",
     "sprint2/roi.html",
     "sprint2/change-log.html",
+    "sprint3/index.html",
+    "sprint3/competitor-research.html",
+    "sprint3/change-log.html",
 ]
 
 REQUIRED_ASSETS = [
@@ -57,6 +60,8 @@ REQUIRED_ASSETS = [
     "assets/pdfs/sprint2-budget-one-pager.pdf",
     "assets/pdfs/sprint2-roi-analysis.pdf",
     "assets/pdfs/sprint2-change-log.pdf",
+    "assets/pdfs/sprint3-competitor-field-research.pdf",
+    "assets/pdfs/sprint3-change-log.pdf",
 ]
 
 REQUIRED_SECTIONS = {
@@ -68,6 +73,9 @@ REQUIRED_SECTIONS = {
         "Sprint 2",
         "Business case",
         "/sprint2/index.html",
+        "Sprint 3",
+        "Field research",
+        "/sprint3/index.html",
     ],
     "about/index.html": [
         "About",
@@ -152,6 +160,32 @@ REQUIRED_SECTIONS = {
         "sprint2-change-log.pdf",
         "Download PDF",
     ],
+    "sprint3/index.html": [
+        "Sprint 3",
+        "Competitor Field Research",
+        "Change Log",
+        "competitor-research.html",
+        "change-log.html",
+        "View PDF",
+    ],
+    "sprint3/competitor-research.html": [
+        "Competitor Field Research",
+        "pdf-viewer",
+        "pdf-link",
+        "doc-label",
+        "sprint3-competitor-field-research.pdf",
+        "Download PDF",
+        "A-01",
+    ],
+    "sprint3/change-log.html": [
+        "Change Log",
+        "pdf-viewer",
+        "pdf-link",
+        "doc-label",
+        "sprint3-change-log.pdf",
+        "Download PDF",
+        "CR-01",
+    ],
 }
 
 SMOKE_PATHS = [
@@ -173,6 +207,10 @@ SMOKE_PATHS = [
     "/sprint2/budget.html",
     "/sprint2/roi.html",
     "/sprint2/change-log.html",
+    "/sprint3/",
+    "/sprint3/index.html",
+    "/sprint3/competitor-research.html",
+    "/sprint3/change-log.html",
     "/assets/css/main.css",
     "/assets/js/site.js",
     "/assets/js/parking-scene.js",
@@ -194,6 +232,8 @@ SMOKE_PATHS = [
     "/assets/pdfs/sprint2-budget-one-pager.pdf",
     "/assets/pdfs/sprint2-roi-analysis.pdf",
     "/assets/pdfs/sprint2-change-log.pdf",
+    "/assets/pdfs/sprint3-competitor-field-research.pdf",
+    "/assets/pdfs/sprint3-change-log.pdf",
 ]
 
 PDF_HREF_RE = re.compile(

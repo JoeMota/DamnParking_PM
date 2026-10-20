@@ -52,13 +52,16 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull request
 | Budget One Pager | `sprint2/budget.html` (+ PDF) |
 | ROI Analysis | `sprint2/roi.html` (+ PDF) |
 | Change Log | `sprint2/change-log.html` (+ PDF) |
+| Sprint 3 | `sprint3/` |
+| Competitor Field Research | `sprint3/competitor-research.html` (+ PDF) |
+| Sprint 3 Change Log | `sprint3/change-log.html` (+ PDF) |
 
 PDFs live in `assets/pdfs/`. Each document page embeds a scrollable on-page viewer (~80vh) and a download button. Peer evaluations stay off this site.
 
 ## Team notes
 
 - Keep web text and PDFs in sync every sprint.
-- Sprint 2 hub includes a change log; update it when new artifacts land.
+- Each sprint hub includes a change log; update it when new artifacts land.
 
 ## Stack
 
