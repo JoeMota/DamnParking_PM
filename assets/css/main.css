@@ -852,6 +852,96 @@ th {
   background: var(--panel);
 }
 tr:hover td { background: rgba(0, 0, 0, 0.02); }
+caption.muted { caption-side: bottom; text-align: left; padding-top: 0.6rem; }
+
+.data-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.data-actions .btn { min-width: 0; }
+.data-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0 1rem;
+}
+.data-stat {
+  background: var(--panel);
+  border-radius: 0.75rem;
+  padding: 1rem 1.1rem;
+}
+.data-stat .label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.data-stat .value {
+  margin-top: 0.25rem;
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.lot-filters,
+.history-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1rem;
+}
+.history-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--white);
+  color: var(--ink);
+  border-radius: 2rem;
+  padding: 0.4rem 0.85rem;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.chip[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+}
+select.field {
+  font-family: var(--font);
+  font-size: 0.9rem;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--white);
+  color: var(--ink);
+}
+.occ-track {
+  height: 0.4rem;
+  background: #e6e6e6;
+  border-radius: 99px;
+  overflow: hidden;
+  min-width: 4.5rem;
+  margin-bottom: 0.2rem;
+}
+.occ-fill {
+  height: 100%;
+  background: var(--occ);
+}
+code {
+  font-size: 0.88em;
+  background: var(--panel);
+  padding: 0.05rem 0.3rem;
+  border-radius: 0.25rem;
+}
 
 .callout {
   margin: 1.5rem 0;
@@ -930,6 +1020,7 @@ tr:hover td { background: rgba(0, 0, 0, 0.02); }
 }
 
 @media (max-width: 760px) {
+  .data-stats { grid-template-columns: 1fr 1fr; }
   .nav-toggle { display: block; }
   .nav-links {
     display: none;

@@ -55,8 +55,9 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull request
 | Sprint 3 | `sprint3/` |
 | Competitor Field Research | `sprint3/competitor-research.html` (+ PDF) |
 | Sprint 3 Change Log | `sprint3/change-log.html` (+ PDF) |
+| Sample database | `data/` (SQLite, JSON, and a review page) |
 
-PDFs live in `assets/pdfs/`. Each document page embeds a scrollable on-page viewer (~80vh) and a download button. Peer evaluations stay off this site.
+PDFs live in `assets/pdfs/`. The sample database lives in `data/damn-parking.sqlite`, with a JSON export at `data/demo-db.json`. Regenerate both with `python3 scripts/seed_demo_db.py`. The rows are fabricated for review. They are not a live camera feed. Each document page embeds a scrollable on-page viewer (~80vh) and a download button. Peer evaluations stay off this site.
 
 ## Team notes
 

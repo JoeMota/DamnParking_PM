@@ -8,7 +8,9 @@ local static server returns 200 for key routes and assets.
 from __future__ import annotations
 
 import html.parser
+import json
 import re
+import sqlite3
 import sys
 import threading
 import urllib.error
@@ -36,6 +38,7 @@ REQUIRED_PAGES = [
     "sprint3/index.html",
     "sprint3/competitor-research.html",
     "sprint3/change-log.html",
+    "data/index.html",
 ]
 
 REQUIRED_ASSETS = [
@@ -62,6 +65,9 @@ REQUIRED_ASSETS = [
     "assets/pdfs/sprint2-change-log.pdf",
     "assets/pdfs/sprint3-competitor-field-research.pdf",
     "assets/pdfs/sprint3-change-log.pdf",
+    "data/damn-parking.sqlite",
+    "data/demo-db.json",
+    "assets/js/lot-data.js",
 ]
 
 REQUIRED_SECTIONS = {
@@ -76,6 +82,8 @@ REQUIRED_SECTIONS = {
         "Sprint 3",
         "Field research",
         "/sprint3/index.html",
+        "Sample database",
+        "/data/index.html",
     ],
     "about/index.html": [
         "About",
@@ -186,6 +194,15 @@ REQUIRED_SECTIONS = {
         "Download PDF",
         "CR-01",
     ],
+    "data/index.html": [
+        "Sample database",
+        "damn-parking.sqlite",
+        "demo-db.json",
+        "occupancy_observations",
+        "is_sample",
+        "assets/js/lot-data.js",
+        "Download SQLite",
+    ],
 }
 
 SMOKE_PATHS = [
@@ -211,6 +228,11 @@ SMOKE_PATHS = [
     "/sprint3/index.html",
     "/sprint3/competitor-research.html",
     "/sprint3/change-log.html",
+    "/data/",
+    "/data/index.html",
+    "/data/damn-parking.sqlite",
+    "/data/demo-db.json",
+    "/assets/js/lot-data.js",
     "/assets/css/main.css",
     "/assets/js/site.js",
     "/assets/js/parking-scene.js",
@@ -550,6 +572,79 @@ def check_http_smoke(failures: Failures) -> None:
         server.server_close()
 
 
+def check_sample_database(failures: Failures) -> None:
+    """Sample SQLite and JSON export must be populated and internally consistent."""
+    db_path = ROOT / "data" / "damn-parking.sqlite"
+    json_path = ROOT / "data" / "demo-db.json"
+    if not db_path.is_file():
+        failures.add("missing data/damn-parking.sqlite")
+        return
+    if not db_path.read_bytes().startswith(b"SQLite format 3"):
+        failures.add("data/damn-parking.sqlite is not a SQLite database")
+        return
+    if not json_path.is_file():
+        failures.add("missing data/demo-db.json")
+        return
+
+    with sqlite3.connect(db_path) as conn:
+        conn.row_factory = sqlite3.Row
+        lots = conn.execute(
+            "SELECT lot_id, name, stall_capacity FROM lots ORDER BY lot_id"
+        ).fetchall()
+        cameras = conn.execute("SELECT COUNT(*) FROM cameras").fetchone()[0]
+        observations = conn.execute("SELECT COUNT(*) FROM occupancy_observations").fetchone()[0]
+        bad_sample = conn.execute(
+            "SELECT COUNT(*) FROM occupancy_observations WHERE is_sample != 1 OR source != 'sample_camera_feed'"
+        ).fetchone()[0]
+        bad_math = conn.execute(
+            """
+            SELECT COUNT(*) FROM occupancy_observations AS o
+            JOIN lots AS l ON l.lot_id = o.lot_id
+            WHERE o.occupied_stalls + o.open_stalls != l.stall_capacity
+            """
+        ).fetchone()[0]
+        latest = conn.execute("SELECT COUNT(*) FROM latest_occupancy").fetchone()[0]
+        names = {row["name"] for row in lots}
+
+    if len(lots) != 8:
+        failures.add(f"sample database expected 8 lots, found {len(lots)}")
+    if "Sun Bowl Garage" not in names:
+        failures.add("sample database is missing Sun Bowl Garage")
+    if cameras < 1:
+        failures.add("sample database has no cameras")
+    expected_observations = 8 * 5 * 25
+    if observations != expected_observations:
+        failures.add(
+            f"sample database expected {expected_observations} observations, found {observations}"
+        )
+    if bad_sample:
+        failures.add(f"{bad_sample} occupancy rows are not marked as sample data")
+    if bad_math:
+        failures.add(f"{bad_math} occupancy rows do not match lot capacity")
+    if latest != len(lots):
+        failures.add("latest_occupancy view does not cover every lot")
+
+    try:
+        payload = json.loads(json_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        failures.add(f"demo-db.json is not valid JSON: {exc}")
+        return
+    if len(payload.get("lots", [])) != len(lots):
+        failures.add("demo-db.json lot count does not match the SQLite database")
+    if len(payload.get("observations", [])) != observations:
+        failures.add("demo-db.json observation count does not match the SQLite database")
+    if payload.get("meta", {}).get("is_live") != "false":
+        failures.add("demo-db.json must label the dataset as not live")
+
+    for html_path in ROOT.rglob("*.html"):
+        if ".git" in html_path.parts:
+            continue
+        content = html_path.read_text(encoding="utf-8")
+        nav = content.split('id="nav-menu"', 1)[-1].split("</ul>", 1)[0]
+        if 'href="/data/index.html"' not in nav:
+            failures.add(f"{html_path.relative_to(ROOT)}: primary nav is missing the Data link")
+
+
 def check_retrospective_published(failures: Failures) -> None:
     """Sprint 1 Retrospective is published on the public portal with viewer + download."""
     page = ROOT / "sprint1" / "retrospective.html"
@@ -581,6 +676,7 @@ def main() -> int:
         ("no preact package", check_no_preact_package),
         ("pdf link parity", check_pdf_links),
         ("retrospective published", check_retrospective_published),
+        ("sample database", check_sample_database),
         ("html structure", check_html_structure),
         ("local asset refs", check_local_asset_refs),
         ("root-absolute links", check_root_absolute_internal_links),
