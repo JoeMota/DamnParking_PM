@@ -67,14 +67,43 @@
       </section>
 
       <section class="section" id="possible-ui">
+        <svg class="ui-filter-defs" aria-hidden="true" focusable="false">
+          <filter id="ui-ink-map" color-interpolation-filters="sRGB">
+            <feComponentTransfer>
+              <feFuncR type="linear" slope="3.5" intercept="-2.55" />
+              <feFuncG type="linear" slope="3.5" intercept="-2.55" />
+              <feFuncB type="linear" slope="3.5" intercept="-2.55" />
+            </feComponentTransfer>
+          </filter>
+          <filter id="ui-ink-flow" color-interpolation-filters="sRGB">
+            <feComponentTransfer>
+              <feFuncR type="linear" slope="6" intercept="-4.9" />
+              <feFuncG type="linear" slope="6" intercept="-4.9" />
+              <feFuncB type="linear" slope="6" intercept="-4.9" />
+            </feComponentTransfer>
+          </filter>
+        </svg>
         <h2>Possible UI</h2>
         <p>Three concept screens for the driver experience. They show directions the interface could take. They are not a released app, and they do not replace the quality-plan rules for stale data.</p>
 
         <section id="find-reserve">
           <h3>Find, review, and reserve</h3>
           <p>A phone flow for choosing a lot, reading the stall count, and keeping a reservation. Sun Bowl Garage is the sample lot on these screens.</p>
-          <figure class="ui-figure phones">
-            <img src="/assets/img/ui/find-reserve-phones.jpg" alt="Three phone screens: Find Parking with Sun Bowl Garage at 740 of 820 stalls, a Sun Bowl Garage detail page with hourly and daily rates, and My Reservations with an active reservation plus parking history." width="1600" height="2820" />
+          <figure class="ui-figure">
+            <div class="ui-frame">
+              <div class="ui-phone-row" aria-hidden="true">
+                <div class="ui-phone-slot">
+                  <div class="ui-phone-fit" data-band="1"><div class="ui-phone-band"></div></div>
+                </div>
+                <div class="ui-phone-slot">
+                  <div class="ui-phone-fit" data-band="2"><div class="ui-phone-band"></div></div>
+                </div>
+                <div class="ui-phone-slot">
+                  <div class="ui-phone-fit" data-band="3"><div class="ui-phone-band"></div></div>
+                </div>
+              </div>
+            </div>
+            <img class="ui-figure-src" src="/assets/img/ui/find-reserve-phones.jpg" alt="Three phone screens: Find Parking with Sun Bowl Garage at 740 of 820 stalls, a Sun Bowl Garage detail page with hourly and daily rates, and My Reservations with an active reservation plus parking history." width="1600" height="2820" />
             <figcaption>Find Parking, the Sun Bowl Garage detail, and My Reservations. Concept screens from the team.</figcaption>
           </figure>
         </section>
@@ -82,8 +111,10 @@
         <section id="live-map">
           <h3>Map with open stalls</h3>
           <p>A dark campus map with a pin for each open-stall count and a card for the selected garage. Directions sit on the card instead of a separate page.</p>
-          <figure class="ui-figure map">
-            <img src="/assets/img/ui/live-map.jpg" alt="Dark map around UTEP with red pins for open stalls and a Sun Bowl Garage card showing 124 stalls, 18 open, and a Get Directions button." width="1400" height="1400" />
+          <figure class="ui-figure">
+            <div class="ui-frame">
+              <img class="ink-map" src="/assets/img/ui/live-map.jpg" alt="Dark map around UTEP with red pins for open stalls and a Sun Bowl Garage card showing 124 stalls, 18 open, and a Get Directions button." width="1400" height="1400" />
+            </div>
             <figcaption>Live map concept. Sun Bowl Garage is selected, with 18 of 124 stalls open on this screen.</figcaption>
           </figure>
         </section>
@@ -91,8 +122,10 @@
         <section id="mobile-flow">
           <h3>Search, permit, directions, and account</h3>
           <p>A second phone set that starts at search, sells a student permit, gives walking directions, and ends on the account page.</p>
-          <figure class="ui-figure flow">
-            <img src="/assets/img/ui/mobile-flow.jpg" alt="Four phone screens: a Damn Parking search home, a student permit purchase for one semester, walking directions of 8 minutes, and a profile page for a student parker." width="1200" height="1577" />
+          <figure class="ui-figure">
+            <div class="ui-frame">
+              <img class="ink-flow" src="/assets/img/ui/mobile-flow.jpg" alt="Four phone screens: a Damn Parking search home, a student permit purchase for one semester, walking directions of 8 minutes, and a profile page for a student parker." width="1200" height="1577" />
+            </div>
             <figcaption>Search, a one-semester student permit, an 8-minute walk, and the profile screen.</figcaption>
           </figure>
         </section>

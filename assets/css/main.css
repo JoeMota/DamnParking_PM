@@ -701,18 +701,105 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
   max-width: min(100%, 56rem);
 }
 
+/* Shared concept frame: same width and height for every possible-UI figure.
+   Images stay fully visible (contain) on a neutral ground. */
 .ui-figure {
-  margin: 1.25rem auto 0;
-}
-.ui-figure.phones { max-width: 52rem; }
-.ui-figure.map { max-width: 40rem; }
-.ui-figure.flow { max-width: 34rem; }
-.ui-figure img {
+  position: relative;
+  margin: 1.35rem auto 0;
   width: 100%;
-  height: auto;
-  border-radius: 0.75rem;
+}
+.ui-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
   border: 1px solid var(--line);
-  background: #111;
+  border-radius: 0.75rem;
+  background: #e7e7e7;
+}
+@media (min-width: 64rem) {
+  .ui-frame {
+    aspect-ratio: 3 / 2;
+  }
+}
+.ui-frame > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+/* Pencil scans sit near white. A levels curve darkens the lines without cropping. */
+.ui-filter-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.ui-frame > img.ink-map { filter: url("#ui-ink-map"); }
+.ui-frame > img.ink-flow { filter: url("#ui-ink-flow"); }
+.ui-phone-row {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+}
+.ui-phone-slot {
+  container-type: size;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+}
+.ui-phone-fit {
+  container-type: size;
+  position: relative;
+  /* Visual box after the source band is turned upright. */
+  width: min(100cqw, calc(100cqh * var(--bh) / var(--bw)));
+  height: min(100cqh, calc(100cqw * var(--bw) / var(--bh)));
+}
+.ui-phone-band {
+  --img-w: 1600;
+  --img-h: 2820;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100cqh;
+  height: 100cqw;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  background-color: #f7f7f5;
+  background-image: url("/assets/img/ui/find-reserve-phones.jpg");
+  background-repeat: no-repeat;
+  background-size:
+    calc(var(--img-w) / var(--bw) * 100%)
+    calc(var(--img-h) / var(--bh) * 100%);
+  background-position:
+    calc(var(--x0) / (var(--img-w) - var(--bw)) * 100%)
+    calc(var(--y0) / (var(--img-h) - var(--bh)) * 100%);
+}
+/* Source bands are the three sideways phones, top to bottom, with a little paper margin. */
+.ui-phone-fit[data-band="1"] { --x0: 16; --y0: 72; --bw: 1568; --bh: 880; }
+.ui-phone-fit[data-band="2"] { --x0: 16; --y0: 1004; --bw: 1568; --bh: 812; }
+.ui-phone-fit[data-band="3"] { --x0: 32; --y0: 1896; --bw: 1568; --bh: 924; }
+.ui-figure-src {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 .ui-figure figcaption {
   margin-top: 0.75rem;
