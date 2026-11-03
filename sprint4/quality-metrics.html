@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quality Metrics · Sprint 4 · Damn Parking</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="brand" href="/index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Damn Parking
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/about/index.html">About</a></li>
+      <li><a href="/sprint1/index.html">Sprint 1</a></li>
+      <li><a href="/sprint2/index.html">Sprint 2</a></li>
+      <li><a href="/sprint3/index.html">Sprint 3</a></li>
+      <li><a href="/sprint4/index.html">Sprint 4</a></li>
+      <li><a href="/data/index.html">Data</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Sprint 4 · Quality Metrics</p>
+      <h1>Quality metrics</h1>
+      <p class="lede">Targets for what the cameras cover, how close the counts are, how fresh the data is, and what the team does when a target is missed.</p>
+      <ul class="subnav">
+        <li><a href="/sprint4/index.html">Sprint 4</a></li>
+        <li><a href="/sprint4/quality-metrics.html" aria-current="page">Quality Metrics</a></li>
+        <li><a href="/sprint4/change-log.html">Change Log</a></li>
+        <li><a href="/sprint4/retrospective.html">Retrospective</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="lot-strip" aria-hidden="true"></div>
+
+  <main class="page-main">
+    <div class="container doc-body with-pdfs">
+      <section class="section" style="padding-top:0">
+        <h2>Targets and response</h2>
+        <p>The plan is dated October 5, 2026. The Technical Lead measures the lot targets. The Project Manager measures spend at the end of each sprint.</p>
+        <ul>
+          <li><strong>Coverage.</strong> 90% of stalls in camera view, checked for each garage and lot. If a lot falls below 90%, pause new lots and fix camera angles first.</li>
+          <li><strong>Accuracy.</strong> At least 90% of spots match a manual count, checked weekly. A miss gets a last-updated or stale-data warning, and expansion waits until it is fixed.</li>
+          <li><strong>Freshness.</strong> The newest update for a lot stays under 2 minutes for 95% of the day, checked daily. The same stale-data warning applies.</li>
+          <li><strong>Spend.</strong> Stay inside the $33,780 baseline, with no management reserve. Lot onboarding is not in the 538-hour estimate yet. The build-services allowance in the plan is $500.</li>
+        </ul>
+        <h3>Issue severity</h3>
+        <ol>
+          <li><strong>Severity 1.</strong> A filter, label, or layout glitch that does not block finding parking. Fix in the next sprint. Tell the instructor at sprint review.</li>
+          <li><strong>Severity 2.</strong> One lot's camera is down or stale, or the manager dashboard fails. Start within 1 business day. Include it in the next weekly update.</li>
+          <li><strong>Severity 3.</strong> The map or list is down, or availability is wrong for every lot. Start within the hour. Tell the instructor as soon as possible.</li>
+        </ol>
+      </section>
+
+      <section class="pdf-panel" id="quality-metrics-pdf" aria-label="Quality Metrics and Issue Management Plan PDF">
+        <div class="pdf-panel-header">
+          <div>
+            <p class="doc-label"><span>Document</span> Quality Metrics</p>
+            <h2>Damn Parking · Quality Metrics and Issue Management Plan</h2>
+            <p class="pdf-panel-meta"><strong>Sprint:</strong> 4 · <strong>Team:</strong> 1 · <strong>Date:</strong> October 5, 2026 · <strong>Purpose:</strong> Coverage, accuracy, freshness, spend, response policy, and issue severity.</p>
+          </div>
+          <a class="pdf-link" href="/assets/pdfs/sprint4-quality-metrics.pdf" download="Damn_Parking_Quality_Metrics_and_Issue_Management_Plan.pdf">Download PDF</a>
+        </div>
+        <div class="pdf-viewer">
+          <iframe title="Damn Parking Quality Metrics and Issue Management Plan PDF" src="/assets/pdfs/sprint4-quality-metrics.pdf#view=FitH" loading="lazy"></iframe>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Damn Parking</div>
+      <p class="footer-meta"><a href="/sprint4/index.html">Sprint 4</a></p>
+    </div>
+  </footer>
+  <script src="/assets/js/site.js"></script>
+</body>
+</html>
