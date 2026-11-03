@@ -722,10 +722,6 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
 .page-main .container:has(.pdf-panel) {
   max-width: min(100% - 3rem, 56rem);
 }
-/* Sprint hubs that also show UI figures stay at the wide portal width. */
-.page-main .container:has(.tile-grid):has(.pdf-panel) {
-  max-width: var(--max);
-}
 
 /* Coming soon tiles / soft links */
 .tile.tile-soon,

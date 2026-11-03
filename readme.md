@@ -59,7 +59,6 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull request
 | Quality Metrics | `sprint4/quality-metrics.html` (+ PDF) |
 | Sprint 4 Change Log | `sprint4/change-log.html` (+ PDF) |
 | Sprint 4 Retrospective | `sprint4/retrospective.html` (+ PDF) |
-| Anm Parking UI concept | `sprint4/#live-map` (+ PDF, possible UI concept) |
 | Sample database | `data/` (SQLite, JSON, and a review page) |
 
 PDFs live in `assets/pdfs/`. The sample database lives in `data/damn-parking.sqlite`, with a JSON export at `data/demo-db.json`. Regenerate both with `python3 scripts/seed_demo_db.py`. The rows are fabricated for review. They are not a live camera feed. Each document page embeds a scrollable on-page viewer (~80vh) and a download button. Peer evaluations stay off this site.
