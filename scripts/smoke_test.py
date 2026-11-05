@@ -49,6 +49,7 @@ REQUIRED_ASSETS = [
     "assets/css/main.css",
     "assets/js/site.js",
     "assets/js/parking-scene.js",
+    "assets/js/wireframe-scene.js",
     "assets/img/team/joe-mota.jpg",
     "assets/img/team/saul-burns.jpg",
     "assets/img/team/david-vasquez.jpg",
@@ -223,6 +224,11 @@ REQUIRED_SECTIONS = {
         "wireframe.png",
         "ui-wireframe",
         "Possible UI wireframe",
+        "wireframe-scene.js",
+        "wireframe-canvas",
+        "Zoom in",
+        "Zoom out",
+        "Reset",
         "View PDF",
     ],
     "sprint4/quality-metrics.html": [
@@ -307,6 +313,7 @@ SMOKE_PATHS = [
     "/assets/css/main.css",
     "/assets/js/site.js",
     "/assets/js/parking-scene.js",
+    "/assets/js/wireframe-scene.js",
     "/assets/img/team/joe-mota.jpg",
     "/assets/img/team/saul-burns.jpg",
     "/assets/img/team/david-vasquez.jpg",
@@ -638,6 +645,24 @@ def check_http_smoke(failures: Failures) -> None:
             ):
                 if needle not in scene:
                     failures.add(f"parking-scene.js missing expected feature marker: {needle}")
+
+        with urllib.request.urlopen(base + "/sprint4/index.html", timeout=5) as resp:
+            sprint4 = resp.read().decode("utf-8", errors="replace")
+        if "assets/js/wireframe-scene.js" not in sprint4:
+            failures.add("sprint4/index.html does not reference wireframe-scene.js")
+        else:
+            with urllib.request.urlopen(base + "/assets/js/wireframe-scene.js", timeout=5) as resp:
+                wire = resp.read().decode("utf-8", errors="replace")
+            if "three@0.170.0" not in wire:
+                failures.add("wireframe-scene.js does not import three@0.170.0")
+            for needle in (
+                "EdgesGeometry",
+                "LineSegments",
+                "wireframe-zoom-in",
+                "prefers-reduced-motion",
+            ):
+                if needle not in wire:
+                    failures.add(f"wireframe-scene.js missing expected feature marker: {needle}")
     finally:
         server.shutdown()
         server.server_close()

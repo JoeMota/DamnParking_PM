@@ -729,6 +729,102 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
   object-position: center top;
   background: #fff;
 }
+.wireframe-stage {
+  margin-top: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: #121722;
+  overflow: hidden;
+}
+.wireframe-canvas {
+  position: relative;
+  width: 100%;
+  height: min(72vh, 44rem);
+  min-height: 26rem;
+  touch-action: none;
+  cursor: grab;
+}
+.wireframe-canvas:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.wireframe-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+.wireframe-canvas.is-fallback {
+  height: auto;
+  min-height: 0;
+  cursor: default;
+  background: #fff;
+}
+.wireframe-canvas.is-fallback img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.wireframe-canvas.is-fallback p {
+  margin: 0;
+  padding: 0.75rem 1rem 1rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.wireframe-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.85rem;
+  margin-top: 0.75rem;
+}
+.wireframe-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.wireframe-controls button {
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--ink);
+  border-radius: 0.25rem;
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+}
+.wireframe-controls button:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+.wireframe-controls button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.wireframe-hint,
+.wireframe-flat {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.wireframe-flat { margin-top: 0.85rem; }
+.wireframe-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0.75rem 0 0;
+  margin: 0;
+}
+.wireframe-key li {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  background: var(--panel);
+  font-size: 0.8rem;
+}
 .ui-figure figcaption {
   margin-top: 0.75rem;
   color: var(--muted);
