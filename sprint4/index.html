@@ -28,13 +28,13 @@
     <div class="container">
       <p class="eyebrow">Sprint 04 · <span class="status-pill">Live</span></p>
       <h1>Quality and concepts</h1>
-      <p class="lede">Sprint 4 sets targets for coverage, accuracy, freshness, and spend, and it shows possible driver interfaces, including a phone-screen wireframe. Scope and cost estimates from Sprint 2 stay in place except where the change log says lot onboarding still needs its own estimate.</p>
+      <p class="lede">Sprint 4 sets targets for coverage, accuracy, freshness, and spend, and it shows possible driver interfaces, including a 3D phone-screen wireframe model. Scope and cost estimates from Sprint 2 stay in place except where the change log says lot onboarding still needs its own estimate.</p>
       <ul class="subnav">
         <li><a href="/sprint4/quality-metrics.html">Quality Metrics</a></li>
         <li><a href="/sprint4/change-log.html">Change Log</a></li>
         <li><a href="/sprint4/retrospective.html">Retrospective</a></li>
         <li><a href="#possible-ui">Possible UI</a></li>
-        <li><a href="#ui-wireframe">UI wireframe</a></li>
+        <li><a href="#ui-wireframe">3D wireframe</a></li>
       </ul>
     </div>
   </header>
@@ -100,29 +100,33 @@
       </section>
 
       <section class="section" id="ui-wireframe">
-        <h2>Possible UI wireframe</h2>
-        <p>A flowchart of phone screens for login, signup, available spots, and telling other drivers a stall just opened. This diagram is a possible UI wireframe, not a released app. The whole diagram is visible at first. Use Zoom in, Zoom out, or the mouse wheel, then drag to pan. Reset returns to the full diagram.</p>
-        <figure class="ui-figure wireframe">
-          <div class="wireframe-zoom" data-wireframe-zoom>
-            <div class="wireframe-zoom-controls" role="group" aria-label="Wireframe zoom">
-              <button type="button" data-zoom-in>Zoom in</button>
-              <button type="button" data-zoom-out>Zoom out</button>
-              <button type="button" data-zoom-reset>Reset</button>
-            </div>
-            <div class="wireframe-zoom-viewport" tabindex="0" aria-label="Damn Parking wireframe. Scroll to zoom. Drag to pan when zoomed.">
-              <div class="wireframe-zoom-stage">
-                <img src="/assets/img/ui/wireframe.png" alt="Damn Parking wireframe flowchart of phone screens. Login page with DAMNPARKING!, username and password fields, a sign up link, and a parking P icon. Signup page with email, username, password, and a login link. Available spots at Mike Loya: a search field, a grid of cars, a change to augmented view control, and a second phone with a lot photo and a change to map control. Notify others about a free spot: a spot place field, turn on location, and a pin on the grid while other drivers are notified. Green banners say a driver just left a spot at Schuster 1." width="1124" height="1544" draggable="false" />
-              </div>
-            </div>
+        <h2>Possible UI wireframe model</h2>
+        <p>Phone screens for login, sign up, available spots, and telling other drivers a stall just opened, built as a 3D wireframe. Drag to rotate, shift-drag to pan, and scroll or pinch to zoom. Use the buttons to zoom in, zoom out, or reset the camera. This is a possible UI wireframe model, not a released app.</p>
+        <div class="wireframe-stage">
+          <div id="wireframe-canvas" class="wireframe-canvas" role="application" aria-label="3D wireframe of the Damn Parking phone flow. Drag to rotate. Shift-drag to pan. Scroll or pinch to zoom."></div>
+        </div>
+        <div class="wireframe-toolbar">
+          <div class="wireframe-controls" role="group" aria-label="Wireframe camera">
+            <button type="button" id="wireframe-zoom-in">Zoom in</button>
+            <button type="button" id="wireframe-zoom-out">Zoom out</button>
+            <button type="button" id="wireframe-reset">Reset</button>
           </div>
-          <figcaption>Possible UI wireframe, not a released app. Login, signup, Mike Loya available spots, and a notify-others flow. Green banners say a driver just left a spot at Schuster 1.</figcaption>
-        </figure>
+          <p class="wireframe-hint">Drag to rotate. Shift-drag to pan. Scroll or pinch to zoom.</p>
+        </div>
+        <ul class="wireframe-key" aria-label="Screens in the model">
+          <li>Login</li>
+          <li>Sign up</li>
+          <li>Available spots</li>
+          <li>Augmented view</li>
+          <li>Notify</li>
+        </ul>
+        <p class="wireframe-flat">The same flowchart is also saved as a <a href="/assets/img/ui/wireframe.png">flat wireframe image</a>. Green banners there say a driver just left a spot at Schuster 1.</p>
       </section>
 
       <section class="section">
         <h2>Change log</h2>
         <ul>
-          <li><strong>2026-11-05:</strong> Added the Damn Parking phone-screen wireframe as its own section under Possible UI. It is a possible UI wireframe, not a released app. Zoom in, zoom out, and reset sit on that diagram, and drag pans while zoomed.</li>
+          <li><strong>2026-11-05:</strong> Added a 3D wireframe model of the phone flow (login, sign up, available spots, augmented view, and notify) as its own section. Drag rotates it, shift-drag pans, and scroll or pinch zooms. Zoom in, zoom out, and reset sit under the model. The flat flowchart image stays linked below it. This is a possible UI wireframe model, not a released app.</li>
           <li><strong>2026-11-03:</strong> Published the Quality Metrics and Issue Management Plan (dated October 5, 2026), the Sprint 4 Change Log, and the Sprint 4 Retrospective. Added three possible UI sections: find and reserve, a live map, and a four-screen mobile flow. The plan's spend baseline is $33,780. Lot onboarding is still outside the 538-hour estimate.</li>
         </ul>
       </section>
@@ -136,6 +140,6 @@
     </div>
   </footer>
   <script src="/assets/js/site.js"></script>
-  <script src="/assets/js/wireframe-zoom.js"></script>
+  <script type="module" src="/assets/js/wireframe-scene.js"></script>
 </body>
 </html>
