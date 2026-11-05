@@ -101,9 +101,20 @@
 
       <section class="section" id="ui-wireframe">
         <h2>Possible UI wireframe</h2>
-        <p>A flowchart of phone screens for login, signup, available spots, and telling other drivers a stall just opened. This diagram is a possible UI wireframe, not a released app.</p>
+        <p>A flowchart of phone screens for login, signup, available spots, and telling other drivers a stall just opened. This diagram is a possible UI wireframe, not a released app. The whole diagram is visible at first. Use Zoom in, Zoom out, or the mouse wheel, then drag to pan. Reset returns to the full diagram.</p>
         <figure class="ui-figure wireframe">
-          <img src="/assets/img/ui/wireframe.png" alt="Damn Parking wireframe flowchart of phone screens. Login page with DAMNPARKING!, username and password fields, a sign up link, and a parking P icon. Signup page with email, username, password, and a login link. Available spots at Mike Loya: a search field, a grid of cars, a change to augmented view control, and a second phone with a lot photo and a change to map control. Notify others about a free spot: a spot place field, turn on location, and a pin on the grid while other drivers are notified. Green banners say a driver just left a spot at Schuster 1." width="1124" height="1544" />
+          <div class="wireframe-zoom" data-wireframe-zoom>
+            <div class="wireframe-zoom-controls" role="group" aria-label="Wireframe zoom">
+              <button type="button" data-zoom-in>Zoom in</button>
+              <button type="button" data-zoom-out>Zoom out</button>
+              <button type="button" data-zoom-reset>Reset</button>
+            </div>
+            <div class="wireframe-zoom-viewport" tabindex="0" aria-label="Damn Parking wireframe. Scroll to zoom. Drag to pan when zoomed.">
+              <div class="wireframe-zoom-stage">
+                <img src="/assets/img/ui/wireframe.png" alt="Damn Parking wireframe flowchart of phone screens. Login page with DAMNPARKING!, username and password fields, a sign up link, and a parking P icon. Signup page with email, username, password, and a login link. Available spots at Mike Loya: a search field, a grid of cars, a change to augmented view control, and a second phone with a lot photo and a change to map control. Notify others about a free spot: a spot place field, turn on location, and a pin on the grid while other drivers are notified. Green banners say a driver just left a spot at Schuster 1." width="1124" height="1544" draggable="false" />
+              </div>
+            </div>
+          </div>
           <figcaption>Possible UI wireframe, not a released app. Login, signup, Mike Loya available spots, and a notify-others flow. Green banners say a driver just left a spot at Schuster 1.</figcaption>
         </figure>
       </section>
@@ -111,7 +122,7 @@
       <section class="section">
         <h2>Change log</h2>
         <ul>
-          <li><strong>2026-11-05:</strong> Added the Damn Parking phone-screen wireframe as its own section under Possible UI. It is a possible UI wireframe, not a released app.</li>
+          <li><strong>2026-11-05:</strong> Added the Damn Parking phone-screen wireframe as its own section under Possible UI. It is a possible UI wireframe, not a released app. Zoom in, zoom out, and reset sit on that diagram, and drag pans while zoomed.</li>
           <li><strong>2026-11-03:</strong> Published the Quality Metrics and Issue Management Plan (dated October 5, 2026), the Sprint 4 Change Log, and the Sprint 4 Retrospective. Added three possible UI sections: find and reserve, a live map, and a four-screen mobile flow. The plan's spend baseline is $33,780. Lot onboarding is still outside the 538-hour estimate.</li>
         </ul>
       </section>
@@ -125,5 +136,6 @@
     </div>
   </footer>
   <script src="/assets/js/site.js"></script>
+  <script src="/assets/js/wireframe-zoom.js"></script>
 </body>
 </html>

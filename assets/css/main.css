@@ -729,6 +729,78 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
   object-position: center top;
   background: #fff;
 }
+.wireframe-zoom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.wireframe-zoom-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.wireframe-zoom-controls button {
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--ink);
+  border-radius: 0.25rem;
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+}
+.wireframe-zoom-controls button:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+.wireframe-zoom-controls button:focus-visible,
+.wireframe-zoom-viewport:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.wireframe-zoom-viewport {
+  position: relative;
+  width: 100%;
+  height: min(80vh, 56rem);
+  min-height: 18rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: #fff;
+  touch-action: pan-y;
+  cursor: default;
+  overscroll-behavior: contain;
+}
+.wireframe-zoom-viewport.is-zoomed {
+  cursor: grab;
+  touch-action: none;
+}
+.wireframe-zoom-viewport.is-panning {
+  cursor: grabbing;
+}
+.wireframe-zoom-stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 0;
+}
+.ui-figure.wireframe .wireframe-zoom-stage img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position: center center;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  user-select: none;
+  pointer-events: none;
+}
 .ui-figure figcaption {
   margin-top: 0.75rem;
   color: var(--muted);
