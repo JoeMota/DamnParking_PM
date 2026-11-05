@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sprint 4 · Damn Parking</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="brand" href="/index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Damn Parking
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/about/index.html">About</a></li>
+      <li><a href="/sprint1/index.html">Sprint 1</a></li>
+      <li><a href="/sprint2/index.html">Sprint 2</a></li>
+      <li><a href="/sprint3/index.html">Sprint 3</a></li>
+      <li><a href="/sprint4/index.html" aria-current="page">Sprint 4</a></li>
+      <li><a href="/data/index.html">Data</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Sprint 04 · <span class="status-pill">Live</span></p>
+      <h1>Quality and concepts</h1>
+      <p class="lede">Sprint 4 sets targets for coverage, accuracy, freshness, and spend, and it shows possible driver interfaces, including a 3D phone-screen wireframe model. Scope and cost estimates from Sprint 2 stay in place except where the change log says lot onboarding still needs its own estimate.</p>
+      <ul class="subnav">
+        <li><a href="/sprint4/quality-metrics.html">Quality Metrics</a></li>
+        <li><a href="/sprint4/change-log.html">Change Log</a></li>
+        <li><a href="/sprint4/retrospective.html">Retrospective</a></li>
+        <li><a href="#possible-ui">Possible UI</a></li>
+        <li><a href="#ui-wireframe">3D wireframe</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="lot-strip" aria-hidden="true"></div>
+
+  <main class="page-main">
+    <div class="container">
+      <section class="section" style="padding-top:2rem">
+        <h2>Sprint 4 documents</h2>
+        <p>Each page opens the deliverable in a scrollable viewer. Use the download button when you need a copy for review.</p>
+        <div class="tile-grid">
+          <a class="tile" href="/sprint4/quality-metrics.html">
+            <span class="tile-num">01 · Quality</span>
+            <h3>Quality Metrics</h3>
+            <p>Coverage, accuracy, freshness, spend, the response policy, and three issue severities.</p>
+            <span class="tile-arrow">View PDF →</span>
+          </a>
+          <a class="tile" href="/sprint4/change-log.html">
+            <span class="tile-num">02 · Changes</span>
+            <h3>Change Log</h3>
+            <p>Six planning changes, from the 90% coverage target through the missing onboarding estimate.</p>
+            <span class="tile-arrow">View PDF →</span>
+          </a>
+          <a class="tile" href="/sprint4/retrospective.html">
+            <span class="tile-num">03 · Retro</span>
+            <h3>Retrospective</h3>
+            <p>What the quality targets clarified, and what still needs a real test or a better estimate.</p>
+            <span class="tile-arrow">View PDF →</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section" id="possible-ui">
+        <h2>Possible UI</h2>
+        <p>Three concept screens for the driver experience. They show directions the interface could take. They are not a released app, and they do not replace the quality-plan rules for stale data.</p>
+
+        <section id="find-reserve">
+          <h3>Find, review, and reserve</h3>
+          <p>A phone flow for choosing a lot, reading the stall count, and keeping a reservation. Sun Bowl Garage is the sample lot on these screens.</p>
+          <figure class="ui-figure phones">
+            <img src="/assets/img/ui/find-reserve-phones.jpg" alt="Three phone screens: Find Parking with Sun Bowl Garage at 740 of 820 stalls, a Sun Bowl Garage detail page with hourly and daily rates, and My Reservations with an active reservation plus parking history." width="1600" height="2820" />
+            <figcaption>Find Parking, the Sun Bowl Garage detail, and My Reservations. Concept screens from the team.</figcaption>
+          </figure>
+        </section>
+
+        <section id="live-map">
+          <h3>Map with open stalls</h3>
+          <p>A dark campus map with a pin for each open-stall count and a card for the selected garage. Directions sit on the card instead of a separate page.</p>
+          <figure class="ui-figure map">
+            <img src="/assets/img/ui/live-map.jpg" alt="Dark map around UTEP with red pins for open stalls and a Sun Bowl Garage card showing 124 stalls, 18 open, and a Get Directions button." width="1400" height="1400" />
+            <figcaption>Live map concept. Sun Bowl Garage is selected, with 18 of 124 stalls open on this screen.</figcaption>
+          </figure>
+        </section>
+
+        <section id="mobile-flow">
+          <h3>Search, permit, directions, and account</h3>
+          <p>A second phone set that starts at search, sells a student permit, gives walking directions, and ends on the account page.</p>
+          <figure class="ui-figure flow">
+            <img src="/assets/img/ui/mobile-flow.jpg" alt="Four phone screens: a Damn Parking search home, a student permit purchase for one semester, walking directions of 8 minutes, and a profile page for a student parker." width="1200" height="1577" />
+            <figcaption>Search, a one-semester student permit, an 8-minute walk, and the profile screen.</figcaption>
+          </figure>
+        </section>
+      </section>
+
+      <section class="section" id="ui-wireframe">
+        <h2>Possible UI wireframe model</h2>
+        <p>Phone screens for login, sign up, available spots, and telling other drivers a stall just opened, built as a 3D wireframe. Drag to orbit, Shift-drag to pan, and scroll or pinch to zoom toward the pointer. Double-click a phone to frame it, or use Fit all for the whole flow. Keys: + or = zoom in, - zooms out, and 0 or R resets. This is a possible UI wireframe model, not a released app.</p>
+        <div class="wireframe-stage">
+          <div id="wireframe-canvas" class="wireframe-canvas" role="application" aria-keyshortcuts="+ - 0 r" aria-label="3D wireframe of the Damn Parking phone flow. Drag to orbit. Shift-drag to pan. Scroll or pinch to zoom toward the pointer. Double-click a phone to frame it."></div>
+        </div>
+        <div class="wireframe-toolbar">
+          <div class="wireframe-controls" role="group" aria-label="Wireframe camera">
+            <button type="button" id="wireframe-zoom-in">Zoom in</button>
+            <button type="button" id="wireframe-zoom-out">Zoom out</button>
+            <button type="button" id="wireframe-fit">Fit all</button>
+            <button type="button" id="wireframe-reset">Reset</button>
+          </div>
+          <p class="wireframe-hint">Drag to orbit. Shift-drag to pan. Scroll or pinch zooms toward the pointer. Double-click a phone to frame it, or double-click empty space to fit the whole flow. Keys: + or = zoom in, - zooms out, 0 or R resets.</p>
+        </div>
+        <ul class="wireframe-key" aria-label="Screens in the model">
+          <li><span class="wireframe-swatch wireframe-swatch-login" aria-hidden="true"></span>Login</li>
+          <li><span class="wireframe-swatch wireframe-swatch-signup" aria-hidden="true"></span>Sign up</li>
+          <li><span class="wireframe-swatch wireframe-swatch-spots" aria-hidden="true"></span>Available spots</li>
+          <li><span class="wireframe-swatch wireframe-swatch-augmented" aria-hidden="true"></span>Augmented view</li>
+          <li><span class="wireframe-swatch wireframe-swatch-notify" aria-hidden="true"></span>Notify</li>
+        </ul>
+        <p class="wireframe-flat">The same flowchart is also saved as a <a href="/assets/img/ui/wireframe.png">flat wireframe image</a>. Green banners there say a driver just left a spot at Schuster 1.</p>
+      </section>
+
+      <section class="section">
+        <h2>Change log</h2>
+        <ul>
+          <li><strong>2026-11-05:</strong> Added a 3D wireframe model of the phone flow (login, sign up, available spots, augmented view, and notify) as its own section. Drag rotates it, shift-drag pans, and scroll or pinch zooms. Zoom in, zoom out, and reset sit under the model. The flat flowchart image stays linked below it. This is a possible UI wireframe model, not a released app.</li>
+          <li><strong>2026-11-03:</strong> Published the Quality Metrics and Issue Management Plan (dated October 5, 2026), the Sprint 4 Change Log, and the Sprint 4 Retrospective. Added three possible UI sections: find and reserve, a live map, and a four-screen mobile flow. The plan's spend baseline is $33,780. Lot onboarding is still outside the 538-hour estimate.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Damn Parking</div>
+      <p class="footer-meta"><a href="/index.html">Home</a> · Sprint 4</p>
+    </div>
+  </footer>
+  <script src="/assets/js/site.js"></script>
+  <script type="module" src="/assets/js/wireframe-scene.js"></script>
+</body>
+</html>

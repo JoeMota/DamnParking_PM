@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Change Log · Sprint 4 · Damn Parking</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="brand" href="/index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Damn Parking
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/about/index.html">About</a></li>
+      <li><a href="/sprint1/index.html">Sprint 1</a></li>
+      <li><a href="/sprint2/index.html">Sprint 2</a></li>
+      <li><a href="/sprint3/index.html">Sprint 3</a></li>
+      <li><a href="/sprint4/index.html">Sprint 4</a></li>
+      <li><a href="/data/index.html">Data</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Sprint 4 · Change Log</p>
+      <h1>What Sprint 4 changed</h1>
+      <p class="lede">Quality targets and issue handling entered the plan. Lot onboarding is called out as work the 538-hour estimate does not yet include.</p>
+      <ul class="subnav">
+        <li><a href="/sprint4/index.html">Sprint 4</a></li>
+        <li><a href="/sprint4/quality-metrics.html">Quality Metrics</a></li>
+        <li><a href="/sprint4/change-log.html" aria-current="page">Change Log</a></li>
+        <li><a href="/sprint4/retrospective.html">Retrospective</a></li>
+      </ul>
+    </div>
+  </header>
+  <div class="lot-strip" aria-hidden="true"></div>
+
+  <main class="page-main">
+    <div class="container doc-body with-pdfs">
+      <section class="section" style="padding-top:0">
+        <h2>Recorded changes</h2>
+        <ol>
+          <li><strong>CH-01 Camera coverage target.</strong> Monitored lots need 90% camera coverage so enough stalls stay visible. That coverage number is now a requirement.</li>
+          <li><strong>CH-02 Parking availability accuracy.</strong> Counts shown to drivers should match a manual count at least 90% of the time. The team has to check that regularly.</li>
+          <li><strong>CH-03 Data freshness requirement.</strong> Updates should be under 2 minutes for 95% of the day, so drivers are not using an old count. Each lot needs monitoring.</li>
+          <li><strong>CH-04 Stale-data warnings.</strong> If accuracy or freshness misses its target, the interface should say the information may be unreliable. That is a possible UI requirement.</li>
+          <li><strong>CH-05 Issue severity classification.</strong> Three severity levels set how fast a problem is fixed and who is told.</li>
+          <li><strong>CH-06 Parking lot onboarding estimate.</strong> Bringing a new lot online was not in the original 538-hour estimate. Schedule and budget may need an update if that work is added.</li>
+        </ol>
+      </section>
+
+      <section class="pdf-panel" id="change-log-pdf" aria-label="Sprint 4 Change Log PDF">
+        <div class="pdf-panel-header">
+          <div>
+            <p class="doc-label"><span>Document</span> Change Log</p>
+            <h2>Damn Parking · Sprint 4 Change Log</h2>
+            <p class="pdf-panel-meta"><strong>Sprint:</strong> 4 · <strong>Team:</strong> 1 · <strong>Purpose:</strong> Quality targets, stale-data warnings, issue severity, and the onboarding estimate gap.</p>
+          </div>
+          <a class="pdf-link" href="/assets/pdfs/sprint4-change-log.pdf" download="Damn_Parking_Sprint_4_Change_Log.pdf">Download PDF</a>
+        </div>
+        <div class="pdf-viewer">
+          <iframe title="Damn Parking Sprint 4 Change Log PDF" src="/assets/pdfs/sprint4-change-log.pdf#view=FitH" loading="lazy"></iframe>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Damn Parking</div>
+      <p class="footer-meta"><a href="/sprint4/index.html">Sprint 4</a></p>
+    </div>
+  </footer>
+  <script src="/assets/js/site.js"></script>
+</body>
+</html>

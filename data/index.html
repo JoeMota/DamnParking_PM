@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sample database · Damn Parking</title>
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary">
+    <a class="brand" href="/index.html">
+      <span class="brand-mark" aria-hidden="true"></span>
+      Damn Parking
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/about/index.html">About</a></li>
+      <li><a href="/sprint1/index.html">Sprint 1</a></li>
+      <li><a href="/sprint2/index.html">Sprint 2</a></li>
+      <li><a href="/sprint3/index.html">Sprint 3</a></li>
+      <li><a href="/sprint4/index.html">Sprint 4</a></li>
+      <li><a href="/data/index.html" aria-current="page">Data</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Data component · <span class="status-pill draft">Sample</span></p>
+      <h1>Sample database</h1>
+      <p class="lede">Fabricated lot records and occupancy history for review. These rows stand in for the two internal data groups in the Sprint 2 estimate. They are not a live camera feed and they are not an official parking inventory.</p>
+    </div>
+  </header>
+  <div class="lot-strip" aria-hidden="true"></div>
+
+  <main class="page-main">
+    <div class="container">
+      <section class="section" style="padding-top:2rem">
+        <h2>What is stored</h2>
+        <p>The Live Parking Monitoring slice stores lot information and timestamped occupancy history. This page reads <code>data/demo-db.json</code>, exported from <code>data/damn-parking.sqlite</code>. Every occupancy row is marked <code>is_sample = 1</code> and sourced from <code>sample_camera_feed</code>.</p>
+        <div class="data-actions">
+          <a class="btn btn-dark" href="/data/damn-parking.sqlite" download="damn-parking-sample.sqlite">Download SQLite</a>
+          <a class="btn btn-outline" href="/data/demo-db.json" download="damn-parking-sample.json">Download JSON</a>
+        </div>
+        <div class="data-stats" id="data-stats" aria-live="polite">
+          <div class="data-stat"><div class="label">Lots</div><div class="value" id="stat-lots">-</div></div>
+          <div class="data-stat"><div class="label">Cameras</div><div class="value" id="stat-cameras">-</div></div>
+          <div class="data-stat"><div class="label">Observations</div><div class="value" id="stat-observations">-</div></div>
+          <div class="data-stat"><div class="label">Latest open stalls</div><div class="value" id="stat-open">-</div></div>
+        </div>
+        <p class="muted" id="data-window">Loading sample records.</p>
+        <p class="callout" id="data-status" hidden></p>
+      </section>
+
+      <section class="section" id="lots">
+        <h2>Lot information</h2>
+        <p>Latest sample snapshot for each lot. Open stalls are capacity minus occupied stalls.</p>
+        <div class="lot-filters" role="group" aria-label="Filter lots">
+          <button class="chip" type="button" data-kind="all" aria-pressed="true">All</button>
+          <button class="chip" type="button" data-kind="garage" aria-pressed="false">Garages</button>
+          <button class="chip" type="button" data-kind="surface" aria-pressed="false">Surface</button>
+          <button class="chip" type="button" data-kind="street" aria-pressed="false">Street</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption class="muted">Sample lots and the newest occupancy row for each one.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Lot</th>
+                <th scope="col">Kind</th>
+                <th scope="col">Permit</th>
+                <th scope="col">Capacity</th>
+                <th scope="col">Occupied</th>
+                <th scope="col">Open</th>
+                <th scope="col">Fullness</th>
+              </tr>
+            </thead>
+            <tbody id="lot-rows">
+              <tr><td colspan="7">Loading lots.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="history">
+        <h2>Occupancy history</h2>
+        <p>Half-hour sample observations from October 20 through October 24, 2026, 7:00 to 19:00 MDT. Pick a lot and a day.</p>
+        <div class="history-controls">
+          <label>Lot
+            <select id="history-lot" class="field"></select>
+          </label>
+          <label>Day
+            <select id="history-day" class="field"></select>
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption class="muted" id="history-caption">Sample occupancy rows for the selected lot and day.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Observed</th>
+                <th scope="col">Occupied</th>
+                <th scope="col">Open</th>
+                <th scope="col">Confidence</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody id="history-rows">
+              <tr><td colspan="5">Loading history.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="schema">
+        <h2>Tables</h2>
+        <div class="table-wrap">
+          <table>
+            <caption class="muted">SQLite tables in damn-parking.sqlite.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Table</th>
+                <th scope="col">Role</th>
+                <th scope="col">Columns</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>lots</code></td>
+                <td>Lot information</td>
+                <td>lot_id, name, kind, address, latitude, longitude, stall_capacity, permit_type, rate_note, walk_minutes</td>
+              </tr>
+              <tr>
+                <td><code>cameras</code></td>
+                <td>Sample camera coverage per lot</td>
+                <td>camera_id, lot_id, label, covers, status</td>
+              </tr>
+              <tr>
+                <td><code>occupancy_observations</code></td>
+                <td>Timestamped occupancy history</td>
+                <td>observation_id, lot_id, observed_at, occupied_stalls, open_stalls, source, confidence, is_sample</td>
+              </tr>
+              <tr>
+                <td><code>dataset_meta</code></td>
+                <td>Dataset label and window</td>
+                <td>key, value</td>
+              </tr>
+              <tr>
+                <td><code>latest_occupancy</code></td>
+                <td>View of the newest row per lot</td>
+                <td>lot_id, name, kind, stall_capacity, observed_at, occupied_stalls, open_stalls, confidence, source</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted">Rebuild the file with <code>python3 scripts/seed_demo_db.py</code>. The home-page 3D lot is a separate visualization and does not read this database.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Damn Parking</div>
+      <p class="footer-meta"><a href="/index.html">Home</a> · Sample database</p>
+    </div>
+  </footer>
+  <script src="/assets/js/site.js"></script>
+  <script src="/assets/js/lot-data.js"></script>
+</body>
+</html>
