@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_PAGES = [
     "index.html",
+    "demo/index.html",
     "about/index.html",
     "sprint1/index.html",
     "sprint1/market-research.html",
@@ -50,6 +51,7 @@ REQUIRED_ASSETS = [
     "assets/css/main.css",
     "assets/js/site.js",
     "assets/js/parking-scene.js",
+    "assets/js/demo-scene.js",
     "assets/img/team/joe-mota.jpg",
     "assets/img/team/saul-burns.jpg",
     "assets/img/team/david-vasquez.jpg",
@@ -102,6 +104,8 @@ REQUIRED_SECTIONS = {
         "/sprint5/index.html",
         "Sample database",
         "/data/index.html",
+        "Driver demo",
+        "/demo/index.html",
     ],
     "about/index.html": [
         "About",
@@ -262,6 +266,16 @@ REQUIRED_SECTIONS = {
         "Download PDF",
         "What went well",
     ],
+    "demo/index.html": [
+        "Driver demo",
+        "demo-canvas",
+        "demo-phone",
+        "demo-scene.js",
+        "stall A4",
+        "not a live camera",
+        "Phone",
+        "Filled",
+    ],
     "data/index.html": [
         "Sample database",
         "damn-parking.sqlite",
@@ -276,6 +290,8 @@ REQUIRED_SECTIONS = {
 SMOKE_PATHS = [
     "/",
     "/index.html",
+    "/demo/",
+    "/demo/index.html",
     "/about/",
     "/about/index.html",
     "/sprint1/",
@@ -318,6 +334,7 @@ SMOKE_PATHS = [
     "/assets/css/main.css",
     "/assets/js/site.js",
     "/assets/js/parking-scene.js",
+    "/assets/js/demo-scene.js",
     "/assets/img/team/joe-mota.jpg",
     "/assets/img/team/saul-burns.jpg",
     "/assets/img/team/david-vasquez.jpg",
@@ -660,6 +677,19 @@ def check_http_smoke(failures: Failures) -> None:
             sprint4 = resp.read().decode("utf-8", errors="replace")
         if "wireframe.png" in sprint4 or "wireframe-scene.js" in sprint4:
             failures.add("sprint4/index.html still includes the wireframe")
+
+        with urllib.request.urlopen(base + "/demo/index.html", timeout=5) as resp:
+            demo = resp.read().decode("utf-8", errors="replace")
+        if "assets/js/demo-scene.js" not in demo:
+            failures.add("demo/index.html does not reference demo-scene.js")
+        else:
+            with urllib.request.urlopen(base + "/assets/js/demo-scene.js", timeout=5) as resp:
+                demo_js = resp.read().decode("utf-8", errors="replace")
+            if "three@0.170.0" not in demo_js:
+                failures.add("demo-scene.js does not import three@0.170.0")
+            for needle in ("samplePath", "fillAmount", "demo-phone", "Stall A4"):
+                if needle not in demo_js and needle not in demo:
+                    failures.add(f"driver demo missing {needle}")
     finally:
         server.shutdown()
         server.server_close()
@@ -740,6 +770,8 @@ def check_sample_database(failures: Failures) -> None:
             failures.add(f"{html_path.relative_to(ROOT)}: primary nav is missing the Sprint 4 link")
         if 'href="/sprint5/index.html"' not in nav:
             failures.add(f"{html_path.relative_to(ROOT)}: primary nav is missing the Sprint 5 link")
+        if 'href="/demo/index.html"' not in nav:
+            failures.add(f"{html_path.relative_to(ROOT)}: primary nav is missing the Demo link")
 
 
 def check_retrospective_published(failures: Failures) -> None:
