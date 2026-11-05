@@ -1,83 +1,34 @@
 /**
  * Damn Parking - 3D wireframe of a possible phone UI flow.
  * Login and sign up on the left, available spots in the middle, notify on the right.
- * Each phone has its own color. This is a possible UI model, not a released app.
+ * Black, white, and gray only. This is a possible UI model, not a released app.
  */
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
 
 const PHONE = { w: 1.9, h: 3.72, d: 0.18 };
 const FACE = PHONE.d / 2 + 0.02;
 
+const INK = {
+  edge: 0xffffff,
+  line: 0xd4d4d4,
+  face: 0x0c0c0c,
+  text: '#f2f2f2',
+  muted: '#c8c8c8',
+  labelBg: '#f2f2f2',
+  labelInk: '#111111',
+};
+
 const SCREENS = [
-  {
-    key: 'login',
-    label: 'Login',
-    edge: 0xffc14d,
-    accent: 0xffd56a,
-    css: '#ffc14d',
-    text: '#fff6df',
-    x: -5.05,
-    y: 2.4,
-    z: 0.45,
-    build: buildLogin,
-  },
-  {
-    key: 'signup',
-    label: 'Sign up',
-    edge: 0x3ddecb,
-    accent: 0x7dfff0,
-    css: '#3ddecb',
-    text: '#e7fffb',
-    x: -5.15,
-    y: -2.9,
-    z: -0.55,
-    build: buildSignup,
-  },
-  {
-    key: 'spots',
-    label: 'Available spots',
-    edge: 0x6aa6ff,
-    accent: 0x9ec2ff,
-    css: '#6aa6ff',
-    text: '#eaf2ff',
-    x: 0.15,
-    y: 2.5,
-    z: 0.75,
-    build: buildSpots,
-  },
-  {
-    key: 'augmented',
-    label: 'Augmented view',
-    edge: 0xc49bff,
-    accent: 0xd7b6ff,
-    css: '#c49bff',
-    text: '#f6f0ff',
-    x: 0.05,
-    y: -2.75,
-    z: -0.2,
-    build: buildAugmented,
-  },
-  {
-    key: 'notify',
-    label: 'Notify',
-    edge: 0xff7a72,
-    accent: 0xffa198,
-    css: '#ff7a72',
-    text: '#ffecec',
-    x: 5.25,
-    y: 0.05,
-    z: 0.25,
-    build: buildNotify,
-  },
+  { key: 'login', label: 'Login', x: -5.05, y: 2.4, z: 0.45, build: buildLogin },
+  { key: 'signup', label: 'Sign up', x: -5.15, y: -2.9, z: -0.55, build: buildSignup },
+  { key: 'spots', label: 'Available spots', x: 0.15, y: 2.5, z: 0.75, build: buildSpots },
+  { key: 'augmented', label: 'Augmented view', x: 0.05, y: -2.75, z: -0.2, build: buildAugmented },
+  { key: 'notify', label: 'Notify', x: 5.25, y: 0.05, z: 0.25, build: buildNotify },
 ];
 
-const BANNER = 0x3ddc84;
-const BANNER_CSS = '#e9fff3';
-const CHECK = 0x3ddc84;
-const PIN = 0xff4d4d;
-const FLOW = 0xb7c4d6;
-const DASH = 0x8ea0b8;
-const FLOOR = 0x243044;
+const FLOW = 0xbdbdbd;
+const DASH = 0x8f8f8f;
+const FLOOR = 0x2e2e2e;
 
 const DEFAULT_THETA = 0.38;
 const DEFAULT_PHI = 1.16;
@@ -107,7 +58,7 @@ const tmpCenter = new THREE.Vector3();
 
 function boot(root) {
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x121722);
+  scene.background = new THREE.Color(0x121212);
 
   const camera = new THREE.PerspectiveCamera(38, 1, 0.08, 500);
   const target = new THREE.Vector3();
@@ -130,7 +81,7 @@ function boot(root) {
   }
 
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-  renderer.setClearColor(0x121722, 1);
+  renderer.setClearColor(0x121212, 1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   root.appendChild(renderer.domElement);
   renderer.domElement.style.touchAction = 'none';
@@ -148,8 +99,8 @@ function boot(root) {
     const phone = makePhone(spec);
     phone.name = spec.key;
     phone.position.set(spec.x, spec.y, spec.z);
-    spec.build(phone, spec);
-    caption(phone, spec.label, spec);
+    spec.build(phone);
+    caption(phone, spec.label);
     const hit = phone.getObjectByName('phone-hit');
     if (hit) phoneHits.push(hit);
     fitRoot.add(phone);
@@ -612,32 +563,26 @@ function dashedMat(color) {
 function fillMat(color) {
   let mat = fillMaterials.get(color);
   if (!mat) {
-    mat = new THREE.MeshBasicMaterial({
-      color,
-      transparent: true,
-      opacity: 0.28,
-      depthWrite: false,
-    });
+    mat = new THREE.MeshBasicMaterial({ color });
     fillMaterials.set(color, mat);
   }
   return mat;
 }
 
-function makePhone(tone) {
+function makePhone(spec) {
   const group = new THREE.Group();
   const body = new THREE.BoxGeometry(PHONE.w, PHONE.h, PHONE.d);
-  group.add(new THREE.LineSegments(new THREE.EdgesGeometry(body, 1), lineMat(tone.edge)));
+  group.add(new THREE.LineSegments(new THREE.EdgesGeometry(body, 1), lineMat(INK.edge)));
   body.dispose();
 
   const screenW = PHONE.w - 0.2;
   const screenH = PHONE.h - 0.5;
-  const fill = new THREE.Mesh(new THREE.PlaneGeometry(screenW, screenH), fillMat(tone.edge));
-  fill.position.set(0, -0.04, FACE - 0.03);
-  fill.renderOrder = 1;
+  const fill = new THREE.Mesh(new THREE.PlaneGeometry(screenW, screenH), fillMat(INK.face));
+  fill.position.set(0, -0.04, FACE - 0.045);
   group.add(fill);
-  addRect(group, 0, -0.04, screenW, screenH, tone.edge, FACE - 0.01);
-  addRect(group, 0, -0.04, screenW - 0.08, screenH - 0.08, tone.accent, FACE);
-  addCircle(group, 0, PHONE.h / 2 - 0.16, FACE, 0.045, tone.edge);
+  addRect(group, 0, -0.04, screenW, screenH, INK.edge, FACE - 0.01);
+  addRect(group, 0, -0.04, screenW - 0.08, screenH - 0.08, INK.line, FACE);
+  addCircle(group, 0, PHONE.h / 2 - 0.16, FACE, 0.045, INK.edge);
 
   const hit = new THREE.Mesh(
     new THREE.BoxGeometry(PHONE.w + 1.7, PHONE.h + 1.25, 1.15),
@@ -645,16 +590,16 @@ function makePhone(tone) {
   );
   hit.name = 'phone-hit';
   hit.position.set(0, 0.46, 0);
-  hit.userData.key = tone.key;
+  hit.userData.key = spec.key;
   group.add(hit);
   return group;
 }
 
-function caption(group, label, tone) {
+function caption(group, label) {
   const worldHeight = label.length > 12 ? 0.58 : 0.68;
   const sprite = makeTextSprite(label, {
-    color: '#141820',
-    background: tone.css,
+    color: INK.labelInk,
+    background: INK.labelBg,
     worldHeight,
     weight: 700,
     fontSize: 120,
@@ -665,113 +610,113 @@ function caption(group, label, tone) {
   group.add(sprite);
 }
 
-function buildLogin(group, tone) {
+function buildLogin(group) {
   const z = FACE;
-  text(group, 'DAMNPARKING!', 0, 1.2, z, { worldHeight: 0.2, color: tone.css });
-  text(group, 'Login', 0, 0.78, z, { worldHeight: 0.18, color: tone.text });
-  field(group, 0, 0.36, z, 'Username', tone);
-  field(group, 0, -0.04, z, 'Password', tone);
-  text(group, 'Are you new?', 0, -0.5, z, { worldHeight: 0.13, color: tone.accent });
-  text(group, 'Sign Up Here', 0, -0.74, z, { worldHeight: 0.15, color: tone.css });
-  addLine(group, [-0.42, -0.86, z, 0.42, -0.86, z], tone.edge);
-  parkingMark(group, 0, -1.28, z, tone);
+  text(group, 'DAMNPARKING!', 0, 1.2, z, { worldHeight: 0.2, color: INK.text });
+  text(group, 'Login', 0, 0.78, z, { worldHeight: 0.18, color: INK.text });
+  field(group, 0, 0.36, z, 'Username');
+  field(group, 0, -0.04, z, 'Password');
+  text(group, 'Are you new?', 0, -0.5, z, { worldHeight: 0.13, color: INK.muted });
+  text(group, 'Sign Up Here', 0, -0.74, z, { worldHeight: 0.15, color: INK.text });
+  addLine(group, [-0.42, -0.86, z, 0.42, -0.86, z], INK.edge);
+  parkingMark(group, 0, -1.28, z);
 }
 
-function buildSignup(group, tone) {
+function buildSignup(group) {
   const z = FACE;
-  text(group, 'WELCOME TO', 0, 1.38, z, { worldHeight: 0.13, color: tone.css });
-  text(group, 'DAMNPARKING!', 0, 1.14, z, { worldHeight: 0.18, color: tone.css });
-  text(group, 'Sign Up', 0, 0.78, z, { worldHeight: 0.16, color: tone.text });
-  field(group, 0, 0.4, z, 'Email', tone);
-  field(group, 0, 0.02, z, 'Username', tone);
-  field(group, 0, -0.36, z, 'Password', tone);
-  text(group, 'Do you have an account?', 0, -0.78, z, { worldHeight: 0.12, color: tone.accent });
-  text(group, 'Login Here', 0, -1.02, z, { worldHeight: 0.15, color: tone.css });
-  addLine(group, [-0.34, -1.14, z, 0.34, -1.14, z], tone.edge);
-  parkingMark(group, 0, -1.46, z, tone);
+  text(group, 'WELCOME TO', 0, 1.38, z, { worldHeight: 0.13, color: INK.text });
+  text(group, 'DAMNPARKING!', 0, 1.14, z, { worldHeight: 0.18, color: INK.text });
+  text(group, 'Sign Up', 0, 0.78, z, { worldHeight: 0.16, color: INK.text });
+  field(group, 0, 0.4, z, 'Email');
+  field(group, 0, 0.02, z, 'Username');
+  field(group, 0, -0.36, z, 'Password');
+  text(group, 'Do you have an account?', 0, -0.78, z, { worldHeight: 0.12, color: INK.muted });
+  text(group, 'Login Here', 0, -1.02, z, { worldHeight: 0.15, color: INK.text });
+  addLine(group, [-0.34, -1.14, z, 0.34, -1.14, z], INK.edge);
+  parkingMark(group, 0, -1.46, z);
 }
 
-function buildSpots(group, tone) {
+function buildSpots(group) {
   const z = FACE;
   banner(group, z);
-  field(group, 0, 0.7, z, 'Search', tone);
-  text(group, 'Mike Loya Available Spots', 0, 0.38, z, { worldHeight: 0.12, color: tone.text });
-  stallGrid(group, z, -0.22, false, tone);
-  bottomBar(group, z, 'Change to augmented view', tone);
+  field(group, 0, 0.7, z, 'Search');
+  text(group, 'Mike Loya Available Spots', 0, 0.38, z, { worldHeight: 0.12, color: INK.text });
+  stallGrid(group, z, -0.22, false);
+  bottomBar(group, z, 'Change to augmented view');
 }
 
-function buildAugmented(group, tone) {
+function buildAugmented(group) {
   const z = FACE;
   banner(group, z);
-  field(group, 0, 0.7, z, 'Search', tone);
-  text(group, 'Mike Loya Available Spots', 0, 0.38, z, { worldHeight: 0.12, color: tone.text });
-  augmentedLot(group, z, tone);
-  bottomBar(group, z, 'Change to map', tone);
+  field(group, 0, 0.7, z, 'Search');
+  text(group, 'Mike Loya Available Spots', 0, 0.38, z, { worldHeight: 0.12, color: INK.text });
+  augmentedLot(group, z);
+  bottomBar(group, z, 'Change to map');
 }
 
-function buildNotify(group, tone) {
+function buildNotify(group) {
   const z = FACE;
-  text(group, 'Notify others', 0, 1.38, z, { worldHeight: 0.17, color: tone.css });
-  text(group, 'you are leaving your spot', 0, 1.14, z, { worldHeight: 0.12, color: tone.accent });
-  field(group, 0, 0.74, z, 'Spot Place', tone);
-  addRect(group, 0, 0.32, 1.48, 0.32, tone.edge, z);
-  text(group, 'Turn On Your Location', 0, 0.32, z + 0.02, { worldHeight: 0.11, color: tone.text });
-  addLine(group, [-0.72, 0.04, z, 0.72, 0.04, z], tone.accent);
-  text(group, 'Notifying other drivers,', 0, -0.18, z, { worldHeight: 0.12, color: tone.text });
-  text(group, 'you are leaving this Spot', 0, -0.38, z, { worldHeight: 0.11, color: tone.accent });
-  stallGrid(group, z, -1.05, true, tone);
+  text(group, 'Notify others', 0, 1.38, z, { worldHeight: 0.17, color: INK.text });
+  text(group, 'you are leaving your spot', 0, 1.14, z, { worldHeight: 0.12, color: INK.muted });
+  field(group, 0, 0.74, z, 'Spot Place');
+  addRect(group, 0, 0.32, 1.48, 0.32, INK.edge, z);
+  text(group, 'Turn On Your Location', 0, 0.32, z + 0.02, { worldHeight: 0.11, color: INK.text });
+  addLine(group, [-0.72, 0.04, z, 0.72, 0.04, z], INK.line);
+  text(group, 'Notifying other drivers,', 0, -0.18, z, { worldHeight: 0.12, color: INK.text });
+  text(group, 'you are leaving this Spot', 0, -0.38, z, { worldHeight: 0.11, color: INK.muted });
+  stallGrid(group, z, -1.05, true);
 }
 
 function banner(parent, z) {
-  addRect(parent, 0, 1.28, 1.55, 0.52, BANNER, z);
-  text(parent, 'Joe Mota just left his spot', 0, 1.36, z + 0.02, { worldHeight: 0.11, color: BANNER_CSS });
-  text(parent, 'Schuster 1', 0, 1.18, z + 0.02, { worldHeight: 0.11, color: BANNER_CSS });
+  addRect(parent, 0, 1.28, 1.55, 0.52, INK.edge, z);
+  text(parent, 'Joe Mota just left his spot', 0, 1.36, z + 0.02, { worldHeight: 0.11, color: INK.text });
+  text(parent, 'Schuster 1', 0, 1.18, z + 0.02, { worldHeight: 0.11, color: INK.text });
 }
 
-function field(parent, x, y, z, label, tone) {
-  addRect(parent, x, y, 1.42, 0.3, tone.edge, z);
-  text(parent, label, x, y, z + 0.02, { worldHeight: 0.13, color: tone.text });
+function field(parent, x, y, z, label) {
+  addRect(parent, x, y, 1.42, 0.3, INK.line, z);
+  text(parent, label, x, y, z + 0.02, { worldHeight: 0.13, color: INK.text });
 }
 
-function bottomBar(parent, z, label, tone) {
-  addRect(parent, 0, -1.46, 1.52, 0.3, tone.edge, z);
-  text(parent, label, 0, -1.46, z + 0.02, { worldHeight: 0.11, color: tone.text });
+function bottomBar(parent, z, label) {
+  addRect(parent, 0, -1.46, 1.52, 0.3, INK.edge, z);
+  text(parent, label, 0, -1.46, z + 0.02, { worldHeight: 0.11, color: INK.text });
 }
 
-function stallGrid(parent, z, y0, withPin, tone) {
+function stallGrid(parent, z, y0, withPin) {
   const cols = [-0.46, 0, 0.46];
   const rows = [0.28, -0.12, -0.52];
   rows.forEach((row, ri) => {
     cols.forEach((col, ci) => {
       const pinHere = withPin && ri === 0 && ci === 1;
-      addCar(parent, col + 0.06, y0 + row, z, 0.72, tone.edge);
+      addCar(parent, col + 0.06, y0 + row, z, 0.72, INK.line);
       if (pinHere) addPin(parent, col - 0.12, y0 + row, z + 0.02);
-      else addCheck(parent, col - 0.16, y0 + row, z, CHECK);
+      else addCheck(parent, col - 0.16, y0 + row, z, INK.edge);
     });
   });
 }
 
-function augmentedLot(parent, z, tone) {
+function augmentedLot(parent, z) {
   const rows = [
     { y: 0.08, w: 1.2, h: 0.22, s: 0.5 },
     { y: -0.28, w: 1.38, h: 0.28, s: 0.66 },
     { y: -0.72, w: 1.52, h: 0.32, s: 0.82 },
   ];
   rows.forEach((row) => {
-    addRect(parent, 0, row.y, row.w, row.h, tone.edge, z);
-    addCar(parent, -row.w * 0.22, row.y, z + 0.01, row.s, tone.edge);
-    addCar(parent, row.w * 0.22, row.y, z + 0.01, row.s, tone.edge);
+    addRect(parent, 0, row.y, row.w, row.h, INK.line, z);
+    addCar(parent, -row.w * 0.22, row.y, z + 0.01, row.s, INK.edge);
+    addCar(parent, row.w * 0.22, row.y, z + 0.01, row.s, INK.edge);
   });
 }
 
-function parkingMark(parent, x, y, z, tone) {
+function parkingMark(parent, x, y, z) {
   const w = 0.82;
   const h = 0.42;
-  addRect(parent, x, y, w, h, tone.edge, z);
-  addLine(parent, [x - w / 6, y - h / 2, z, x - w / 6, y + h / 2, z], tone.accent);
-  addLine(parent, [x + w / 6, y - h / 2, z, x + w / 6, y + h / 2, z], tone.accent);
+  addRect(parent, x, y, w, h, INK.edge, z);
+  addLine(parent, [x - w / 6, y - h / 2, z, x - w / 6, y + h / 2, z], INK.line);
+  addLine(parent, [x + w / 6, y - h / 2, z, x + w / 6, y + h / 2, z], INK.line);
   const stemX = x - 0.07;
-  addLine(parent, [stemX, y - 0.13, z, stemX, y + 0.13, z], tone.edge);
+  addLine(parent, [stemX, y - 0.13, z, stemX, y + 0.13, z], INK.edge);
   const arc = [];
   const cx = x - 0.02;
   const cy = y + 0.045;
@@ -781,7 +726,7 @@ function parkingMark(parent, x, y, z, tone) {
   }
   arc.unshift(new THREE.Vector3(stemX, y + 0.13, z));
   arc.push(new THREE.Vector3(stemX, y - 0.04, z));
-  addPolyline(parent, arc, tone.edge);
+  addPolyline(parent, arc, INK.edge);
 }
 
 function addCar(parent, x, y, z, scale, color) {
@@ -795,8 +740,8 @@ function addCheck(parent, x, y, z, color) {
 }
 
 function addPin(parent, x, y, z) {
-  addLine(parent, [x, y - 0.02, z, x, y + 0.16, z], PIN);
-  addCircle(parent, x, y + 0.2, z, 0.05, PIN);
+  addLine(parent, [x, y - 0.02, z, x, y + 0.16, z], INK.edge);
+  addCircle(parent, x, y + 0.2, z, 0.05, INK.edge);
 }
 
 function addFloor(parent) {
@@ -871,7 +816,7 @@ function text(parent, value, x, y, z, opts = {}) {
 }
 
 function makeTextSprite(value, {
-  color = '#d5deea',
+  color = '#e8e8e8',
   background = '',
   worldHeight = 0.2,
   weight = 600,
