@@ -707,12 +707,27 @@ a:not(.btn):not(.tile):not(.brand):not(.pdf-link):hover {
 .ui-figure.phones { max-width: 52rem; }
 .ui-figure.map { max-width: 40rem; }
 .ui-figure.flow { max-width: 34rem; }
+.ui-figure.wireframe {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  overflow: visible;
+}
 .ui-figure img {
   width: 100%;
   height: auto;
   border-radius: 0.75rem;
   border: 1px solid var(--line);
   background: #111;
+}
+.ui-figure.wireframe img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: none;
+  object-fit: contain;
+  object-position: center top;
+  background: #fff;
 }
 .ui-figure figcaption {
   margin-top: 0.75rem;
