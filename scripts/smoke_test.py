@@ -42,6 +42,7 @@ REQUIRED_PAGES = [
     "sprint4/quality-metrics.html",
     "sprint4/change-log.html",
     "sprint4/retrospective.html",
+    "sprint5/index.html",
     "data/index.html",
 ]
 
@@ -49,7 +50,6 @@ REQUIRED_ASSETS = [
     "assets/css/main.css",
     "assets/js/site.js",
     "assets/js/parking-scene.js",
-    "assets/js/wireframe-scene.js",
     "assets/img/team/joe-mota.jpg",
     "assets/img/team/saul-burns.jpg",
     "assets/img/team/david-vasquez.jpg",
@@ -97,6 +97,9 @@ REQUIRED_SECTIONS = {
         "Sprint 4",
         "Quality and UI",
         "/sprint4/index.html",
+        "Sprint 5",
+        "UI wireframe",
+        "/sprint5/index.html",
         "Sample database",
         "/data/index.html",
     ],
@@ -221,15 +224,15 @@ REQUIRED_SECTIONS = {
         "find-reserve-phones.jpg",
         "live-map.jpg",
         "mobile-flow.jpg",
-        "wireframe.png",
+        "View PDF",
+    ],
+    "sprint5/index.html": [
+        "Sprint 5",
+        "UI wireframe",
         "ui-wireframe",
         "Possible UI wireframe",
-        "wireframe-scene.js",
-        "wireframe-canvas",
-        "Zoom in",
-        "Zoom out",
-        "Reset",
-        "View PDF",
+        "wireframe.png",
+        "not a released app",
     ],
     "sprint4/quality-metrics.html": [
         "Quality Metrics",
@@ -298,6 +301,8 @@ SMOKE_PATHS = [
     "/sprint4/quality-metrics.html",
     "/sprint4/change-log.html",
     "/sprint4/retrospective.html",
+    "/sprint5/",
+    "/sprint5/index.html",
     "/assets/pdfs/sprint4-quality-metrics.pdf",
     "/assets/pdfs/sprint4-change-log.pdf",
     "/assets/pdfs/sprint4-retrospective.pdf",
@@ -313,7 +318,6 @@ SMOKE_PATHS = [
     "/assets/css/main.css",
     "/assets/js/site.js",
     "/assets/js/parking-scene.js",
-    "/assets/js/wireframe-scene.js",
     "/assets/img/team/joe-mota.jpg",
     "/assets/img/team/saul-burns.jpg",
     "/assets/img/team/david-vasquez.jpg",
@@ -646,23 +650,16 @@ def check_http_smoke(failures: Failures) -> None:
                 if needle not in scene:
                     failures.add(f"parking-scene.js missing expected feature marker: {needle}")
 
+        with urllib.request.urlopen(base + "/sprint5/index.html", timeout=5) as resp:
+            sprint5 = resp.read().decode("utf-8", errors="replace")
+        if "/assets/img/ui/wireframe.png" not in sprint5:
+            failures.add("sprint5/index.html does not show the wireframe PNG")
+        if "wireframe-scene.js" in sprint5 or "wireframe-canvas" in sprint5:
+            failures.add("sprint5/index.html still includes the 3D wireframe")
         with urllib.request.urlopen(base + "/sprint4/index.html", timeout=5) as resp:
             sprint4 = resp.read().decode("utf-8", errors="replace")
-        if "assets/js/wireframe-scene.js" not in sprint4:
-            failures.add("sprint4/index.html does not reference wireframe-scene.js")
-        else:
-            with urllib.request.urlopen(base + "/assets/js/wireframe-scene.js", timeout=5) as resp:
-                wire = resp.read().decode("utf-8", errors="replace")
-            if "three@0.170.0" not in wire:
-                failures.add("wireframe-scene.js does not import three@0.170.0")
-            for needle in (
-                "EdgesGeometry",
-                "LineSegments",
-                "wireframe-zoom-in",
-                "prefers-reduced-motion",
-            ):
-                if needle not in wire:
-                    failures.add(f"wireframe-scene.js missing expected feature marker: {needle}")
+        if "wireframe.png" in sprint4 or "wireframe-scene.js" in sprint4:
+            failures.add("sprint4/index.html still includes the wireframe")
     finally:
         server.shutdown()
         server.server_close()
@@ -741,6 +738,8 @@ def check_sample_database(failures: Failures) -> None:
             failures.add(f"{html_path.relative_to(ROOT)}: primary nav is missing the Data link")
         if 'href="/sprint4/index.html"' not in nav:
             failures.add(f"{html_path.relative_to(ROOT)}: primary nav is missing the Sprint 4 link")
+        if 'href="/sprint5/index.html"' not in nav:
+            failures.add(f"{html_path.relative_to(ROOT)}: primary nav is missing the Sprint 5 link")
 
 
 def check_retrospective_published(failures: Failures) -> None:
