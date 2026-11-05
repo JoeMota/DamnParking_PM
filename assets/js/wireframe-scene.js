@@ -535,7 +535,9 @@ function showFallback(root, message) {
   root.classList.add('is-fallback');
   root.innerHTML = '';
   const img = document.createElement('img');
-  img.src = '/assets/img/ui/wireframe.png';
+  img.src = '/assets/img/ui/wireframe.webp';
+  img.width = 1124;
+  img.height = 1544;
   img.alt = 'Flat Damn Parking wireframe flowchart of the login, signup, available spots, and notify phones.';
   const note = document.createElement('p');
   note.textContent = message + ' This is a possible UI wireframe model, not a released app.';
