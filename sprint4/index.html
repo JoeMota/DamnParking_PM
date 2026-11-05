@@ -101,24 +101,25 @@
 
       <section class="section" id="ui-wireframe">
         <h2>Possible UI wireframe model</h2>
-        <p>Phone screens for login, sign up, available spots, and telling other drivers a stall just opened, built as a 3D wireframe. Drag to rotate, shift-drag to pan, and scroll or pinch to zoom. Use the buttons to zoom in, zoom out, or reset the camera. This is a possible UI wireframe model, not a released app.</p>
+        <p>Phone screens for login, sign up, available spots, and telling other drivers a stall just opened, built as a 3D wireframe. Drag to orbit, Shift-drag to pan, and scroll or pinch to zoom toward the pointer. Double-click a phone to frame it, or use Fit all for the whole flow. Keys: + or = zoom in, - zooms out, and 0 or R resets. This is a possible UI wireframe model, not a released app.</p>
         <div class="wireframe-stage">
-          <div id="wireframe-canvas" class="wireframe-canvas" role="application" aria-label="3D wireframe of the Damn Parking phone flow. Drag to rotate. Shift-drag to pan. Scroll or pinch to zoom."></div>
+          <div id="wireframe-canvas" class="wireframe-canvas" role="application" aria-keyshortcuts="+ - 0 r" aria-label="3D wireframe of the Damn Parking phone flow. Drag to orbit. Shift-drag to pan. Scroll or pinch to zoom toward the pointer. Double-click a phone to frame it."></div>
         </div>
         <div class="wireframe-toolbar">
           <div class="wireframe-controls" role="group" aria-label="Wireframe camera">
             <button type="button" id="wireframe-zoom-in">Zoom in</button>
             <button type="button" id="wireframe-zoom-out">Zoom out</button>
+            <button type="button" id="wireframe-fit">Fit all</button>
             <button type="button" id="wireframe-reset">Reset</button>
           </div>
-          <p class="wireframe-hint">Drag to rotate. Shift-drag to pan. Scroll or pinch to zoom.</p>
+          <p class="wireframe-hint">Drag to orbit. Shift-drag to pan. Scroll or pinch zooms toward the pointer. Double-click a phone to frame it, or double-click empty space to fit the whole flow. Keys: + or = zoom in, - zooms out, 0 or R resets.</p>
         </div>
         <ul class="wireframe-key" aria-label="Screens in the model">
-          <li>Login</li>
-          <li>Sign up</li>
-          <li>Available spots</li>
-          <li>Augmented view</li>
-          <li>Notify</li>
+          <li><span class="wireframe-swatch wireframe-swatch-login" aria-hidden="true"></span>Login</li>
+          <li><span class="wireframe-swatch wireframe-swatch-signup" aria-hidden="true"></span>Sign up</li>
+          <li><span class="wireframe-swatch wireframe-swatch-spots" aria-hidden="true"></span>Available spots</li>
+          <li><span class="wireframe-swatch wireframe-swatch-augmented" aria-hidden="true"></span>Augmented view</li>
+          <li><span class="wireframe-swatch wireframe-swatch-notify" aria-hidden="true"></span>Notify</li>
         </ul>
         <p class="wireframe-flat">The same flowchart is also saved as a <a href="/assets/img/ui/wireframe.png">flat wireframe image</a>. Green banners there say a driver just left a spot at Schuster 1.</p>
       </section>
