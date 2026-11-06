@@ -27,7 +27,7 @@
   </nav>
 
   <main class="demo-stage">
-    <div id="demo-canvas" role="img" aria-label="Driver view of Sun Bowl Garage. The car approaches, the phone shows stall A4 open, the car parks, and the stall is marked taken."></div>
+    <div id="demo-canvas" role="img" aria-label="Driver view of the UTEP campus at real scale. The phone shows stall A4 open at Sun Bowl Parking Garage. Drive into that stall and it is marked filled."></div>
     <div class="demo-pillar" aria-hidden="true"></div>
     <div class="demo-pillar right" aria-hidden="true"></div>
     <div class="demo-hood" aria-hidden="true">
@@ -35,9 +35,9 @@
     </div>
 
     <div class="demo-hud">
-      <p class="demo-kicker">Driver demo · Sun Bowl Garage</p>
-      <h1 id="demo-title">Pulling up to the lot</h1>
-      <p id="demo-caption">The driver needs an open stall at Sun Bowl Garage.</p>
+      <p class="demo-kicker">Driver demo · UTEP campus</p>
+      <h1 id="demo-title">Drive to stall A4</h1>
+      <p id="demo-caption">Sun Bowl Parking Garage is ahead. Damn Parking is holding stall A4.</p>
     </div>
 
     <div class="demo-system" id="demo-system" hidden>
@@ -45,41 +45,44 @@
       <strong id="demo-system-text">Watching stall A4</strong>
     </div>
 
-    <div class="demo-phone" id="demo-phone">
+    <div class="demo-phone is-docked" id="demo-phone">
       <div class="demo-phone-top">
         <span>9:41</span>
         <span>Damn Parking</span>
       </div>
-      <p class="demo-phone-lot">Sun Bowl Garage</p>
-      <p class="demo-phone-count"><strong id="demo-open">18</strong> open of 820</p>
+      <p class="demo-phone-lot" id="demo-lot">Sun Bowl Parking Garage</p>
+      <p class="demo-phone-count"><strong id="demo-open">574</strong> open of <span id="demo-capacity">820</span></p>
       <div class="demo-stall-grid" id="demo-stalls" aria-hidden="true"></div>
       <p class="demo-phone-status" id="demo-status">A4 is open. Park here.</p>
     </div>
 
+    <canvas id="demo-map" width="256" height="256" aria-label="Campus map"></canvas>
+    <div class="demo-pad" aria-label="Drive">
+      <button type="button" data-drive="forward" aria-label="Drive forward">↑</button>
+      <button type="button" data-drive="left" aria-label="Steer left">←</button>
+      <button type="button" data-drive="right" aria-label="Steer right">→</button>
+      <button type="button" data-drive="back" aria-label="Reverse">↓</button>
+    </div>
     <div class="demo-controls">
-      <button type="button" id="demo-play" aria-pressed="true">Pause</button>
-      <button type="button" id="demo-replay">Replay</button>
-      <div class="demo-beats" role="group" aria-label="Demo chapters">
-        <button type="button" class="demo-beat is-current" data-at="0">Drive up</button>
-        <button type="button" class="demo-beat" data-at="6">Phone</button>
-        <button type="button" class="demo-beat" data-at="11.5">Park</button>
-        <button type="button" class="demo-beat" data-at="19">Filled</button>
-      </div>
-      <div class="demo-progress" aria-hidden="true"><span id="demo-progress"></span></div>
+      <button type="button" id="demo-reset">Reset</button>
+      <button type="button" id="demo-view" aria-pressed="false">Overhead</button>
+      <button type="button" id="demo-phone-btn">Phone</button>
+      <button type="button" id="demo-fill">Filled</button>
+      <a class="demo-maps" id="demo-maps" href="https://www.google.com/maps/@31.7731,-106.5072,18z" target="_blank" rel="noopener">This spot on Google Maps</a>
     </div>
   </main>
 
   <section class="demo-notes">
     <div class="container">
       <h2>What the demo shows</h2>
-      <p>One driver pulls up to Sun Bowl Garage, checks Damn Parking on his phone, parks in stall A4, and the lot camera records that stall as taken. The open count falls from 18 to 17. The picture is drawn in the browser. This is a portal demonstration, not a released app and not a live camera feed.</p>
+      <p>You drive the real UTEP campus in the browser. Streets, buildings, and parking lots are the real outlines at 1 meter = 1 meter, the same places shown on Google Maps. Damn Parking holds stall A4 at Sun Bowl Parking Garage. Park in that green stall and the lot camera marks it filled. The open count drops by one. This is a portal demonstration, not a released app and not a live camera feed.</p>
       <ol>
-        <li><strong>Drive up.</strong> The view is from the driver's seat as the car enters the aisle.</li>
-        <li><strong>Phone.</strong> The phone names stall A4 and shows 18 stalls still open.</li>
-        <li><strong>Park.</strong> The car pulls into the open stall.</li>
-        <li><strong>Filled.</strong> The camera lifts, the stall marker turns taken, and the phone count drops to 17.</li>
+        <li><strong>Drive.</strong> Arrows or WASD move the car. The on-screen pad does the same thing. Overhead lifts the camera so the campus reads as a map.</li>
+        <li><strong>Phone.</strong> The phone names stall A4 at Sun Bowl Parking Garage and the sample open count for that garage.</li>
+        <li><strong>Park.</strong> Roll into the green stall and stop.</li>
+        <li><strong>Filled.</strong> The stall turns taken, the phone count drops, and the lot camera says the spot is filled. The Filled button parks the car there for you.</li>
       </ol>
-      <p>Pause and Replay sit under the picture. Space or K pauses. R starts over. Drive up, Phone, Park, and Filled jump to that chapter. The picture stays on the filled stall when the browser asks for reduced motion.</p>
+      <p>Reset puts the car back on the road south of the garage. This spot on Google Maps opens the car's real coordinates so you can compare the world with the map. Layout data is © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Stall counts for Sun Bowl, Schuster, Glory Road, and University lots come from the sample database. Other lots are estimated from their real area. The picture stays on the filled stall when the browser asks for reduced motion.</p>
     </div>
   </section>
 
