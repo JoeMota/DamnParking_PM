@@ -335,6 +335,7 @@ SMOKE_PATHS = [
     "/assets/js/site.js",
     "/assets/js/parking-scene.js",
     "/assets/js/demo-scene.js",
+    "/assets/data/utep-campus.json",
     "/assets/img/team/joe-mota.jpg",
     "/assets/img/team/saul-burns.jpg",
     "/assets/img/team/david-vasquez.jpg",
@@ -687,9 +688,15 @@ def check_http_smoke(failures: Failures) -> None:
                 demo_js = resp.read().decode("utf-8", errors="replace")
             if "three@0.170.0" not in demo_js:
                 failures.add("demo-scene.js does not import three@0.170.0")
-            for needle in ("samplePath", "fillAmount", "demo-phone", "Stall A4"):
+            for needle in ("utep-campus.json", "markFilled", "demo-phone", "Stall A4", "OpenStreetMap"):
                 if needle not in demo_js and needle not in demo:
                     failures.add(f"driver demo missing {needle}")
+            with urllib.request.urlopen(base + "/assets/data/utep-campus.json", timeout=5) as resp:
+                campus = json.loads(resp.read().decode("utf-8"))
+            if campus.get("targetName") != "Sun Bowl Parking Garage (SBG)":
+                failures.add("campus map is missing Sun Bowl Parking Garage")
+            if len(campus.get("lots") or []) < 20 or len(campus.get("roads") or []) < 100:
+                failures.add("campus map is missing roads or parking lots")
     finally:
         server.shutdown()
         server.server_close()
