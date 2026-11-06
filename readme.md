@@ -39,6 +39,7 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull request
 | Page | Path |
 |------|------|
 | Home | `index.html` |
+| Driver demo | `demo/` |
 | About Us | `about/` |
 | Sprint 1 | `sprint1/` |
 | Market Research | `sprint1/market-research.html` (+ PDFs) |
