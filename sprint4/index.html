@@ -15,11 +15,13 @@
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
     <ul class="nav-links" id="nav-menu">
       <li><a href="/index.html">Home</a></li>
+      <li><a href="/demo/index.html">Demo</a></li>
       <li><a href="/about/index.html">About</a></li>
       <li><a href="/sprint1/index.html">Sprint 1</a></li>
       <li><a href="/sprint2/index.html">Sprint 2</a></li>
       <li><a href="/sprint3/index.html">Sprint 3</a></li>
       <li><a href="/sprint4/index.html" aria-current="page">Sprint 4</a></li>
+      <li><a href="/sprint5/index.html">Sprint 5</a></li>
       <li><a href="/data/index.html">Data</a></li>
     </ul>
   </nav>
@@ -28,13 +30,12 @@
     <div class="container">
       <p class="eyebrow">Sprint 04 · <span class="status-pill">Live</span></p>
       <h1>Quality and concepts</h1>
-      <p class="lede">Sprint 4 sets targets for coverage, accuracy, freshness, and spend, and it shows possible driver interfaces, including a 3D phone-screen wireframe model. Scope and cost estimates from Sprint 2 stay in place except where the change log says lot onboarding still needs its own estimate.</p>
+      <p class="lede">Sprint 4 sets targets for coverage, accuracy, freshness, and spend, and it shows possible driver interfaces. Scope and cost estimates from Sprint 2 stay in place except where the change log says lot onboarding still needs its own estimate.</p>
       <ul class="subnav">
         <li><a href="/sprint4/quality-metrics.html">Quality Metrics</a></li>
         <li><a href="/sprint4/change-log.html">Change Log</a></li>
         <li><a href="/sprint4/retrospective.html">Retrospective</a></li>
         <li><a href="#possible-ui">Possible UI</a></li>
-        <li><a href="#ui-wireframe">3D wireframe</a></li>
       </ul>
     </div>
   </header>
@@ -99,35 +100,9 @@
         </section>
       </section>
 
-      <section class="section" id="ui-wireframe">
-        <h2>Possible UI wireframe model</h2>
-        <p>Phone screens for login, sign up, available spots, and telling other drivers a stall just opened, built as a 3D wireframe. Drag to orbit, Shift-drag to pan, and scroll or pinch to zoom toward the pointer. Double-click a phone to frame it, or use Fit all for the whole flow. Keys: + or = zoom in, - zooms out, and 0 or R resets. This is a possible UI wireframe model, not a released app.</p>
-        <div class="wireframe-stage">
-          <div id="wireframe-canvas" class="wireframe-canvas" role="application" aria-keyshortcuts="+ - 0 r" aria-label="3D wireframe of the Damn Parking phone flow. Drag to orbit. Shift-drag to pan. Scroll or pinch to zoom toward the pointer. Double-click a phone to frame it."></div>
-        </div>
-        <div class="wireframe-toolbar">
-          <div class="wireframe-controls" role="group" aria-label="Wireframe camera">
-            <button type="button" id="wireframe-zoom-in">Zoom in</button>
-            <button type="button" id="wireframe-zoom-out">Zoom out</button>
-            <button type="button" id="wireframe-fit">Fit all</button>
-            <button type="button" id="wireframe-reset">Reset</button>
-          </div>
-          <p class="wireframe-hint">Drag to orbit. Shift-drag to pan. Scroll or pinch zooms toward the pointer. Double-click a phone to frame it, or double-click empty space to fit the whole flow. Keys: + or = zoom in, - zooms out, 0 or R resets.</p>
-        </div>
-        <ul class="wireframe-key" aria-label="Screens in the model">
-          <li><span class="wireframe-swatch wireframe-swatch-login" aria-hidden="true"></span>Login</li>
-          <li><span class="wireframe-swatch wireframe-swatch-signup" aria-hidden="true"></span>Sign up</li>
-          <li><span class="wireframe-swatch wireframe-swatch-spots" aria-hidden="true"></span>Available spots</li>
-          <li><span class="wireframe-swatch wireframe-swatch-augmented" aria-hidden="true"></span>Augmented view</li>
-          <li><span class="wireframe-swatch wireframe-swatch-notify" aria-hidden="true"></span>Notify</li>
-        </ul>
-        <p class="wireframe-flat">The same flowchart is also saved as a <a href="/assets/img/ui/wireframe.png">flat wireframe image</a>. Green banners there say a driver just left a spot at Schuster 1.</p>
-      </section>
-
       <section class="section">
         <h2>Change log</h2>
         <ul>
-          <li><strong>2026-11-05:</strong> Added a 3D wireframe model of the phone flow (login, sign up, available spots, augmented view, and notify) as its own section. Drag rotates it, shift-drag pans, and scroll or pinch zooms. Zoom in, zoom out, and reset sit under the model. The flat flowchart image stays linked below it. This is a possible UI wireframe model, not a released app.</li>
           <li><strong>2026-11-03:</strong> Published the Quality Metrics and Issue Management Plan (dated October 5, 2026), the Sprint 4 Change Log, and the Sprint 4 Retrospective. Added three possible UI sections: find and reserve, a live map, and a four-screen mobile flow. The plan's spend baseline is $33,780. Lot onboarding is still outside the 538-hour estimate.</li>
         </ul>
       </section>
@@ -141,6 +116,5 @@
     </div>
   </footer>
   <script src="/assets/js/site.js"></script>
-  <script type="module" src="/assets/js/wireframe-scene.js"></script>
 </body>
 </html>

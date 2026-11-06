@@ -39,6 +39,7 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull request
 | Page | Path |
 |------|------|
 | Home | `index.html` |
+| Driver demo | `demo/` |
 | About Us | `about/` |
 | Sprint 1 | `sprint1/` |
 | Market Research | `sprint1/market-research.html` (+ PDFs) |
@@ -59,6 +60,7 @@ GitHub Actions (`.github/workflows/ci.yml`) runs the same checks on pull request
 | Quality Metrics | `sprint4/quality-metrics.html` (+ PDF) |
 | Sprint 4 Change Log | `sprint4/change-log.html` (+ PDF) |
 | Sprint 4 Retrospective | `sprint4/retrospective.html` (+ PDF) |
+| Sprint 5 | `sprint5/` (phone wireframe image) |
 | Sample database | `data/` (SQLite, JSON, and a review page) |
 
 PDFs live in `assets/pdfs/`. The sample database lives in `data/damn-parking.sqlite`, with a JSON export at `data/demo-db.json`. Regenerate both with `python3 scripts/seed_demo_db.py`. The rows are fabricated for review. They are not a live camera feed. Each document page embeds a scrollable on-page viewer (~80vh) and a download button. Peer evaluations stay off this site.
